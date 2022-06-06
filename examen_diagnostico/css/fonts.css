@@ -1,0 +1,31 @@
+@font-face {
+    font-family: 'Sofia Pro Regular';
+    src: url('../fonts/Sofia Pro Regular.ttf');
+    font-style: normal;
+}
+@font-face {
+    font-family: 'HK Grotesk';
+    src: url('../fonts/hkgrotesk-bold-webfont.4583efb9.woff2') format('woff2'),
+         url('../fonts/hkgrotesk-bold-webfont.adbf7bd1.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'HK Grotesk';
+    src: url('../fonts/hkgrotesk-light-webfont.f6422925.woff2') format('woff2'),
+         url('../fonts/hkgrotesk-light-webfont.e15891a2.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'HK Grotesk';
+    src: url('../fonts/hkgrotesk-regular-webfont.24ab7b0d.woff2') format('woff2'),
+         url('../fonts/hkgrotesk-regular-webfont.1b6dc14a.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
