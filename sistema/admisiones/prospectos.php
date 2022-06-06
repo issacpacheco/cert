@@ -1,6 +1,6 @@
 <?php 
 include("includes/config.php");
-error_reporting(E_ALL);
+error_reporting(0);
 if (isset($_POST['alta']))
 {
 	$consulta1 = mysqli_query($conexion,"SELECT * FROM oferta_asesor WHERE id_oferta = '".$_POST['id_oferta']."' ORDER BY rand() LIMIT 1");

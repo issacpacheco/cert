@@ -118,6 +118,14 @@
                                         <div id="container2" style="width:100%; height:400px;"></div>
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div id="container3" style="width:100%; height:400px;"></div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div id="container4" style="width:100%; height:400px;"></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -294,113 +302,246 @@
                 dataType: 'json',
                 success: function(data){
                     if(tipo == 'prospectos' || tipo == 'aspirantes'){
+                        var total = data.graficasinstituciones.instituciones.escuelas.length;
+                        let arreglo = {};
+                        arreglo.escuela = [];
+                        var school = "";
+                        for(let i = 0; i < total; i++){
+                            escuela =  data.graficasinstituciones.instituciones.escuelas[i];
+                            arreglo["escuela"].push({escuela});
+                        }
+                        console.log(arreglo);
                         Highcharts.chart('container', {
                             chart: {
-                                type: 'variablepie'
+                                type: 'bar'
                             },
                             title: {
-                                text: 'Grafica de medios por donde nos conocieron ('+tipo+').'
+                                text: 'Grafica de medios'
+                            },
+                            subtitle: {
+                                text: 'Medios donde se enterarón de nosotros'
+                            },
+                            xAxis: {
+                                categories: ['Facebook', 'Google', 'Instagram', 'Whatsapp', 'Periodico', 'Ferias vocacionales', 'Espectaculares', 'Visitas al plantel', 'Transporte publico', 'Television', 'Recomendación', 'Otros'],
+                                title: {
+                                    text: null
+                                }
+                            },
+                            yAxis: {
+                            min: 0,
+                            title: {
+                                text: 'Totales',
+                                align: 'high'
+                            },
+                            labels: {
+                                overflow: 'justify'
+                            }
                             },
                             tooltip: {
-                                headerFormat: '',
-                                pointFormat: '<span style="color:{point.color}">\u25CF</span> <b> {point.name}</b><br/>' +
-                                    'Cantidad registrada por este medio: <b>{point.y}</b><br/>'
+                                valueSuffix: ' en total'
                             },
-                            series: [{
-                                minPointSize: 80,
-                                innerSize: '60%',
-                                zMin: 0,
-                                name: 'Medios',
-                                data: [{
-                                    name: 'Facebook',
-                                    y: Number(data.graficasmedios.Medios.facebook)
-                                }, {
-                                    name: 'Google',
-                                    y: Number(data.graficasmedios.Medios.google)
-                                }, {
-                                    name: 'Instagram',
-                                    y: Number(data.graficasmedios.Medios.instagram)
-                                }, {
-                                    name: 'Whatsapp',
-                                    y: Number(data.graficasmedios.Medios.whatsapp)
-                                }, {
-                                    name: 'Periódico',
-                                    y: Number(data.graficasmedios.Medios.periodico)
-                                }, {
-                                    name: 'Ferias vocacionales',
-                                    y: Number(data.graficasmedios.Medios.ferias_vocacionales)
-                                }, {
-                                    name: 'Espectaculares',
-                                    y: Number(data.graficasmedios.Medios.espectaculares)
-                                }, {
-                                    name: 'Visita al plantel',
-                                    y: Number(data.graficasmedios.Medios.visita_plantel)
-                                }, {
-                                    name: 'Publicidad en transporte público',
-                                    y: Number(data.graficasmedios.Medios.publicidad_transporte_publico)
-                                }, {
-                                    name: 'Televisión',
-                                    y: Number(data.graficasmedios.Medios.television)
-                                }, {
-                                    name: 'Recomendación',
-                                    y: Number(data.graficasmedios.Medios.recomendacion)
-                                }, {
-                                    name: 'Otros',
-                                    y: Number(data.graficasmedios.Medios.otros)
-                                }]
-                            }]
+                            plotOptions: {
+                                bar: {
+                                    dataLabels: {
+                                    enabled: true
+                                    }
+                                }
+                            },
+                            legend: {
+                                layout: 'vertical',
+                                align: 'right',
+                                verticalAlign: 'top',
+                                x: -40,
+                                y: 80,
+                                floating: true,
+                                borderWidth: 1,
+                                backgroundColor:
+                                    Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF',
+                                shadow: true
+                            },
+                            credits: {
+                                enabled: false
+                            },
+                            series: [
+                                {
+                                    name: "Total",
+                                    data: [Number(data.graficasmedios.Medios.facebook),
+                                           Number(data.graficasmedios.Medios.google),
+                                           Number(data.graficasmedios.Medios.instagram),
+                                           Number(data.graficasmedios.Medios.whatsapp),
+                                           Number(data.graficasmedios.Medios.periodico),
+                                           Number(data.graficasmedios.Medios.ferias_vocacionales),
+                                           Number(data.graficasmedios.Medios.espectaculares),
+                                           Number(data.graficasmedios.Medios.visita_plantel),
+                                           Number(data.graficasmedios.Medios.publicidad_transporte_publico),
+                                           Number(data.graficasmedios.Medios.television),
+                                           Number(data.graficasmedios.Medios.recomendacion),
+                                           Number(data.graficasmedios.Medios.otros)]
+                                }
+                            ]
                         });
                     }
                     Highcharts.chart('container2', {
                         chart: {
-                            type: 'item'
+                            type: 'bar'
                         },
-
                         title: {
-                            text: 'Grafica de carreras'
+                            text: 'Grafica de medios'
                         },
-
                         subtitle: {
-                            text: 'Preferencias de los '+tipo
+                            text: 'Medios donde se enterarón de nosotros'
                         },
-
+                        xAxis: {
+                            categories: ['Administración y Mercadotecnia', 
+                                         'Derecho', 
+                                         'Educación Preescolar', 
+                                         'Educación Primaria (ISEN)', 
+                                         'Enfermería', 
+                                         'Fisioterapia', 
+                                         'Nutrición', 
+                                         'Psicología', 
+                                         'Enfermería en Cuidados Intensivos', 
+                                         'Enfermería Pediátrica', 
+                                         'Enfermería Quirúrgica', 
+                                         'Gestión y Docencia en los servicios de Enfermería',
+                                         'Derecho Procesal Penal',
+                                         'Innovación y Desarrollo Educativos',
+                                         'Salud Pública',
+                                         'Doctorado en Educación',
+                                         'Médico cirujano',
+                                         'Turismo'
+                                        ],
+                            title: {
+                                text: null
+                            }
+                        },
+                        yAxis: {
+                        min: 0,
+                        title: {
+                            text: 'Totales',
+                            align: 'high'
+                        },
+                        labels: {
+                            overflow: 'justify'
+                        }
+                        },
+                        tooltip: {
+                            valueSuffix: ' en total'
+                        },
+                        plotOptions: {
+                            bar: {
+                                dataLabels: {
+                                enabled: true
+                                }
+                            }
+                        },
                         legend: {
-                            labelFormat: '{name} <span style="opacity: 0.4">{y}</span>'
+                            layout: 'vertical',
+                            align: 'right',
+                            verticalAlign: 'top',
+                            x: -40,
+                            y: 80,
+                            floating: true,
+                            borderWidth: 1,
+                            backgroundColor:
+                                Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF',
+                            shadow: true
                         },
-                        series: [{
-                            name: 'Representatives',
-                            keys: ['name', 'y', 'color', 'label'],
-                            data: [
-                                ['Administración y Mercadotecnia', Number(data.graficascarreras.Carreras.administracion_mercadotecnia), '#BE3075', 'ADMON Y MERCA'],
-                                ['Derecho', Number(data.graficascarreras.Carreras.derecho), '#EB001F', 'DERECHO'],
-                                ['Educación Preescolar', Number(data.graficascarreras.Carreras.educacion_preescolar), '#64A12D', 'EDU PRES'],
-                                ['Educación Primaria (ISEN)', Number(data.graficascarreras.Carreras.educacion_primaria), '#FFED00', 'EDU PRIM'],
-                                ['Enfermería', Number(data.graficascarreras.Carreras.enfermeria), '#000000', 'ENFE'],
-                                ['Fisioterapia', Number(data.graficascarreras.Carreras.fisioterapia), '#FF6848', 'FISIO'],
-                                ['Nutrición', Number(data.graficascarreras.Carreras.nutricion), '#FFB900', 'NUTRI'],
-                                ['Psicología', Number(data.graficascarreras.Carreras.psicologia), '#6F438C', 'PSICO'],
-                                ['Enfermería en Cuidados Intensivos', Number(data.graficascarreras.Carreras.enfermeria_cuidados_intensivos), '#77043A', 'ENFE C/INTENSIVO'],
-                                ['Enfermería Pediátrica', Number(data.graficascarreras.Carreras.enfermeria_pediatrica), '#82F985', 'ENFE PEDIA'],
-                                ['Enfermería Quirúrgica', Number(data.graficascarreras.Carreras.enfermeria_quirurgica), '#FF0089', 'ENFE QUIRU'],
-                                ['Gestión y Docencia en los servicios de Enfermería', Number(data.graficascarreras.Carreras.gestion_docencia_servicios_enfermeria), '#C5FF00', 'GES DOCE SERV ENFE'],
-                                ['Derecho Procesal Penal', Number(data.graficascarreras.Carreras.derecho_procesal_penal), '#14AB74', 'DER PROC PENAL'],
-                                ['Innovación y Desarrollo Educativos', Number(data.graficascarreras.Carreras.innovacion_desarrollo_educativos), '#1471AB', 'INNO DES EDU'],
-                                ['Salud Pública', Number(data.graficascarreras.Carreras.salud_publica), '#385567', 'SALUD PUBLI'],
-                                ['Doctorado en Educación', Number(data.graficascarreras.Carreras.doctorado_educacion), '#A992B4', 'DOC EDU'],
-                                ['Médico cirujano', Number(data.graficascarreras.Carreras.medico_cirujano), '#B4AB92', 'MED CIRU'],
-                                ['Turismo', Number(data.graficascarreras.Carreras.turismo), '#92B4A0', 'TUR']
-                            ],
-                            dataLabels: {
-                                enabled: true,
-                                format: '{point.label}'
-                            },
-
-                            // Circular options
-                            center: ['50%', '88%'],
-                            size: '170%',
-                            startAngle: -100,
-                            endAngle: 100
-                        }]
+                        credits: {
+                            enabled: false
+                        },
+                        series: [
+                            {
+                                name: "Total",
+                                data: [Number(data.graficascarreras.Carreras.administracion_mercadotecnia),
+                                        Number(data.graficascarreras.Carreras.derecho),
+                                        Number(data.graficascarreras.Carreras.educacion_preescolar),
+                                        Number(data.graficascarreras.Carreras.educacion_primaria),
+                                        Number(data.graficascarreras.Carreras.enfermeria),
+                                        Number(data.graficascarreras.Carreras.fisioterapia),
+                                        Number(data.graficascarreras.Carreras.nutricion),
+                                        Number(data.graficascarreras.Carreras.psicologia),
+                                        Number(data.graficascarreras.Carreras.enfermeria_cuidados_intensivos),
+                                        Number(data.graficascarreras.Carreras.enfermeria_pediatrica),
+                                        Number(data.graficascarreras.Carreras.enfermeria_quirurgica),
+                                        Number(data.graficascarreras.Carreras.gestion_docencia_servicios_enfermeria),
+                                        Number(data.graficascarreras.Carreras.derecho_procesal_penal),
+                                        Number(data.graficascarreras.Carreras.innovacion_desarrollo_educativos),
+                                        Number(data.graficascarreras.Carreras.salud_publica),
+                                        Number(data.graficascarreras.Carreras.doctorado_educacion),
+                                        Number(data.graficascarreras.Carreras.medico_cirujano),
+                                        Number(data.graficascarreras.Carreras.turismo)]
+                            }
+                        ]
+                    });
+                    Highcharts.chart('container', {
+                        chart: {
+                            type: 'bar'
+                        },
+                        title: {
+                            text: 'Grafica de medios'
+                        },
+                        subtitle: {
+                            text: 'Medios donde se enterarón de nosotros'
+                        },
+                        xAxis: {
+                            categories: [],
+                            title: {
+                                text: null
+                            }
+                        },
+                        yAxis: {
+                        min: 0,
+                        title: {
+                            text: 'Totales',
+                            align: 'high'
+                        },
+                        labels: {
+                            overflow: 'justify'
+                        }
+                        },
+                        tooltip: {
+                            valueSuffix: ' en total'
+                        },
+                        plotOptions: {
+                            bar: {
+                                dataLabels: {
+                                enabled: true
+                                }
+                            }
+                        },
+                        legend: {
+                            layout: 'vertical',
+                            align: 'right',
+                            verticalAlign: 'top',
+                            x: -40,
+                            y: 80,
+                            floating: true,
+                            borderWidth: 1,
+                            backgroundColor:
+                                Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF',
+                            shadow: true
+                        },
+                        credits: {
+                            enabled: false
+                        },
+                        series: [
+                            {
+                                name: "Total",
+                                data: [Number(data.graficasmedios.Medios.facebook),
+                                        Number(data.graficasmedios.Medios.google),
+                                        Number(data.graficasmedios.Medios.instagram),
+                                        Number(data.graficasmedios.Medios.whatsapp),
+                                        Number(data.graficasmedios.Medios.periodico),
+                                        Number(data.graficasmedios.Medios.ferias_vocacionales),
+                                        Number(data.graficasmedios.Medios.espectaculares),
+                                        Number(data.graficasmedios.Medios.visita_plantel),
+                                        Number(data.graficasmedios.Medios.publicidad_transporte_publico),
+                                        Number(data.graficasmedios.Medios.television),
+                                        Number(data.graficasmedios.Medios.recomendacion),
+                                        Number(data.graficasmedios.Medios.otros)]
+                            }
+                        ]
                     });
                 }
             });

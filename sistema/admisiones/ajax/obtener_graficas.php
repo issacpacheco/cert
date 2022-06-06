@@ -4,9 +4,9 @@ error_reporting(E_ALL);
 include("../../../includes/class/allClass.php");
 include_once("../../../includes/funciones.php");
 
-$tipo       = filter_input(INPUT_POST, 'tipo', FILTER_SANITIZE_STRING);
+$tipo       = filter_input(INPUT_POST, 'tipo', FILTER_SANITIZE_SPECIAL_CHARS);
 $campus     = filter_input(INPUT_POST, 'campus', FILTER_SANITIZE_NUMBER_INT);
-$fecha      = filter_input(INPUT_POST, 'fecha', FILTER_SANITIZE_STRING);
+$fecha      = filter_input(INPUT_POST, 'fecha', FILTER_SANITIZE_SPECIAL_CHARS);
 
 use nsreportes\reportes;
 use nsfunciones\funciones;
@@ -52,6 +52,7 @@ switch ($tipo){
     case "prospectos":
         $arreglomedios = [];
         $arreglocarreras = [];
+        $arregloinstituciones = [];
         $g = $get->obtener_graficas_medios_prospectos($campus,$fecha_ini,$fecha_fin);
         $arreglomedios = array("Medios" => array("facebook"                          => $g['facebook'][0],
                                                     "google"                         => $g['google'][0],
@@ -86,8 +87,15 @@ switch ($tipo){
                                                     "medico_cirujano"                                    => $h['medico_cirujano'][0],
                                                     "turismo"                                            => $h['turismo'][0]));
         
+        $e = $get->obtener_graficas_instituciones($campus,$fecha_ini,$fecha_fin);
+        $ce = $fn->cuentarray($e);
+        for($i = 0; $i < $ce; $i++){
+            $arregloinstituciones["instituciones"]["escuelas"][$i] = array($e['institucion'][$i] => $e['total'][$i]);
+        }
+        
         $json['graficascarreras'] = $arreglocarreras;
         $json['graficasmedios'] = $arreglomedios;
+        $json['graficasinstituciones'] = $arregloinstituciones;
 
         $json = json_encode($json);
         print_r($json);
