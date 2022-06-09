@@ -302,83 +302,79 @@
                 dataType: 'json',
                 success: function(data){
                     if(tipo == 'prospectos' || tipo == 'aspirantes'){
-                        var total = data.graficasinstituciones.instituciones.escuelas.length;
-                        let arreglo = {};
-                        arreglo.escuela = [];
-                        var school = "";
-                        for(let i = 0; i < total; i++){
-                            escuela =  data.graficasinstituciones.instituciones.escuelas[i];
-                            arreglo["escuela"].push({escuela});
-                        }
-                        console.log(arreglo);
                         Highcharts.chart('container', {
                             chart: {
-                                type: 'bar'
+                                plotBackgroundColor: null,
+                                plotBorderWidth: null,
+                                plotShadow: false,
+                                type: 'pie'
                             },
                             title: {
-                                text: 'Grafica de medios'
-                            },
-                            subtitle: {
-                                text: 'Medios donde se enterarón de nosotros'
-                            },
-                            xAxis: {
-                                categories: ['Facebook', 'Google', 'Instagram', 'Whatsapp', 'Periodico', 'Ferias vocacionales', 'Espectaculares', 'Visitas al plantel', 'Transporte publico', 'Television', 'Recomendación', 'Otros'],
-                                title: {
-                                    text: null
-                                }
-                            },
-                            yAxis: {
-                            min: 0,
-                            title: {
-                                text: 'Totales',
-                                align: 'high'
-                            },
-                            labels: {
-                                overflow: 'justify'
-                            }
+                                text: 'Grafica de medios de contacto'
                             },
                             tooltip: {
-                                valueSuffix: ' en total'
+                                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                            },
+                            accessibility: {
+                                point: {
+                                valueSuffix: '%'
+                                }
                             },
                             plotOptions: {
-                                bar: {
-                                    dataLabels: {
-                                    enabled: true
+                                pie: {
+                                allowPointSelect: true,
+                                cursor: 'pointer',
+                                dataLabels: {
+                                    enabled: true,
+                                    format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                                }
+                                }
+                            },
+                            series: [{
+                                name: 'Brands',
+                                colorByPoint: true,
+                                data: [
+                                    {
+                                        name: 'Facebook',
+                                        y: Number(data.graficasmedios.Medios.facebook),
+                                        sliced: true,
+                                        selected: true
+                                    }, {
+                                        name: 'Google',
+                                        y: Number(data.graficasmedios.Medios.google)
+                                    }, {
+                                        name: 'Instagram',
+                                        y: Number(data.graficasmedios.Medios.instagram)
+                                    },{
+                                        name: 'Whatsapp',
+                                        y: Number(data.graficasmedios.Medios.whatsapp)
+                                    },{
+                                        name: 'Periodico',
+                                        y: Number(data.graficasmedios.Medios.periodico)
+                                    },{
+                                        name: 'Ferias Vocacionales',
+                                        y: Number(data.graficasmedios.Medios.ferias_vocacionales)
+                                    },{
+                                        name: 'Espectaculares',
+                                        y: Number(data.graficasmedios.Medios.espectaculares)
+                                    },{
+                                        name: 'Visitas al Plantel',
+                                        y: Number(data.graficasmedios.Medios.visita_plantel)
+                                    },{
+                                        name: 'Transporte Publico',
+                                        y: Number(data.graficasmedios.Medios.publicidad_transporte_publico)
+                                    },{
+                                        name: 'Televisión',
+                                        y: Number(data.graficasmedios.Medios.television)
+                                    },{
+                                        name: 'Recomendación',
+                                        y: Number(data.graficasmedios.Medios.recomendacion)
+                                    },{
+                                        name: 'Otros',
+                                        y: Number(data.graficasmedios.Medios.otros)
                                     }
-                                }
-                            },
-                            legend: {
-                                layout: 'vertical',
-                                align: 'right',
-                                verticalAlign: 'top',
-                                x: -40,
-                                y: 80,
-                                floating: true,
-                                borderWidth: 1,
-                                backgroundColor:
-                                    Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF',
-                                shadow: true
-                            },
-                            credits: {
-                                enabled: false
-                            },
-                            series: [
-                                {
-                                    name: "Total",
-                                    data: [Number(data.graficasmedios.Medios.facebook),
-                                           Number(data.graficasmedios.Medios.google),
-                                           Number(data.graficasmedios.Medios.instagram),
-                                           Number(data.graficasmedios.Medios.whatsapp),
-                                           Number(data.graficasmedios.Medios.periodico),
-                                           Number(data.graficasmedios.Medios.ferias_vocacionales),
-                                           Number(data.graficasmedios.Medios.espectaculares),
-                                           Number(data.graficasmedios.Medios.visita_plantel),
-                                           Number(data.graficasmedios.Medios.publicidad_transporte_publico),
-                                           Number(data.graficasmedios.Medios.television),
-                                           Number(data.graficasmedios.Medios.recomendacion),
-                                           Number(data.graficasmedios.Medios.otros)]
-                                }
-                            ]
+                                ]
+                            }]
                         });
                     }
                     Highcharts.chart('container2', {
@@ -386,7 +382,7 @@
                             type: 'bar'
                         },
                         title: {
-                            text: 'Grafica de medios'
+                            text: 'Grafica de ofertas educativas'
                         },
                         subtitle: {
                             text: 'Medios donde se enterarón de nosotros'
@@ -428,11 +424,15 @@
                         tooltip: {
                             valueSuffix: ' en total'
                         },
+                        colors: [ '#AA4643', '#89A54E', '#80699B', '#3D96AE', '#DB843D', '#92A8CD', '#A47D7C', '#B5CA92' ],
                         plotOptions: {
                             bar: {
                                 dataLabels: {
                                 enabled: true
                                 }
+                            },
+                            column: {
+                                colorByPoint: true
                             }
                         },
                         legend: {
@@ -474,74 +474,118 @@
                             }
                         ]
                     });
-                    Highcharts.chart('container', {
+                    // Highcharts.chart('container3', {
+                    //     chart: {
+                    //         type: 'column'
+                    //     },
+                    //     title: {
+                    //         text: 'Grafica de institución de procedencia'
+                    //     },
+                    //     subtitle: {
+                    //         text: ""
+                    //     },
+                    //     xAxis: {
+                    //         type: 'category',
+                    //         labels: {
+                    //         rotation: -45,
+                    //         style: {
+                    //             fontSize: '13px',
+                    //             fontFamily: 'Verdana, sans-serif'
+                    //         }
+                    //         }
+                    //     },
+                    //     yAxis: {
+                    //         min: 0,
+                    //         title: {
+                    //         text: 'Cantidad'
+                    //         }
+                    //     },
+                    //     legend: {
+                    //         enabled: false
+                    //     },
+                    //     colors: ['#89A54E', '#80699B', '#3D96AE', '#DB843D', '#92A8CD', '#A47D7C', '#B5CA92' ],
+                    //     tooltip: {
+                    //         pointFormat: 'Institución: <b>{point.y:.0f} registrados</b>'
+                    //     },
+                    //     plotOptions: {                            
+                    //         column: {
+                    //             colorByPoint: true
+                    //         }
+                    //     },
+                    //     series: [{
+                    //         name: 'Instituciones',
+                    //         data: [
+                    //             [data.graficasinstituciones.instituciones[0].nombre, Number(data.graficasinstituciones.instituciones[0].cantidad)],
+                    //             [data.graficasinstituciones.instituciones[1].nombre, Number(data.graficasinstituciones.instituciones[1].cantidad)],
+                    //             [data.graficasinstituciones.instituciones[2].nombre, Number(data.graficasinstituciones.instituciones[2].cantidad)],
+                    //             [data.graficasinstituciones.instituciones[3].nombre, Number(data.graficasinstituciones.instituciones[3].cantidad)],
+                    //             [data.graficasinstituciones.instituciones[4].nombre, Number(data.graficasinstituciones.instituciones[4].cantidad)],
+                    //             [data.graficasinstituciones.instituciones[5].nombre, Number(data.graficasinstituciones.instituciones[5].cantidad)],
+                    //             [data.graficasinstituciones.instituciones[6].nombre, Number(data.graficasinstituciones.instituciones[6].cantidad)],
+                    //             [data.graficasinstituciones.instituciones[7].nombre, Number(data.graficasinstituciones.instituciones[7].cantidad)],
+                    //             [data.graficasinstituciones.instituciones[8].nombre, Number(data.graficasinstituciones.instituciones[8].cantidad)],
+                    //             [data.graficasinstituciones.instituciones[9].nombre, Number(data.graficasinstituciones.instituciones[9].cantidad)]
+                    //         ],
+                    //         dataLabels: {
+                    //             enabled: true,
+                    //             rotation: -90,
+                    //             color: '#FFFFFF',
+                    //             align: 'right',
+                    //             format: '{point.y:.0f}', // one decimal
+                    //             y: 10, // 10 pixels down from the top
+                    //             style: {
+                    //                 fontSize: '13px',
+                    //                 fontFamily: 'Verdana, sans-serif'
+                    //             }
+                    //         }
+                    //     }]
+                    // });
+                    Highcharts.chart('container4', {
                         chart: {
-                            type: 'bar'
+                            plotBackgroundColor: null,
+                            plotBorderWidth: null,
+                            plotShadow: false,
+                            type: 'pie'
                         },
                         title: {
-                            text: 'Grafica de medios'
-                        },
-                        subtitle: {
-                            text: 'Medios donde se enterarón de nosotros'
-                        },
-                        xAxis: {
-                            categories: [],
-                            title: {
-                                text: null
-                            }
-                        },
-                        yAxis: {
-                        min: 0,
-                        title: {
-                            text: 'Totales',
-                            align: 'high'
-                        },
-                        labels: {
-                            overflow: 'justify'
-                        }
+                            text: 'Graficas de preferencias de horario'
                         },
                         tooltip: {
-                            valueSuffix: ' en total'
+                            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                        },
+                        accessibility: {
+                            point: {
+                            valueSuffix: '%'
+                            }
                         },
                         plotOptions: {
-                            bar: {
-                                dataLabels: {
-                                enabled: true
+                            pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                            dataLabels: {
+                                enabled: true,
+                                format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                            }
+                            }
+                        },
+                        series: [{
+                            name: 'Brands',
+                            colorByPoint: true,
+                            data: [
+                                {
+                                    name: 'Matutino',
+                                    y: Number(data.graficashorario.horario.matutino),
+                                    sliced: true,
+                                    selected: true
+                                }, {
+                                    name: 'Vespertino',
+                                    y: Number(data.graficashorario.horario.vespertino)
+                                }, {
+                                    name: 'Indistito',
+                                    y: Number(data.graficashorario.horario.indistinto)
                                 }
-                            }
-                        },
-                        legend: {
-                            layout: 'vertical',
-                            align: 'right',
-                            verticalAlign: 'top',
-                            x: -40,
-                            y: 80,
-                            floating: true,
-                            borderWidth: 1,
-                            backgroundColor:
-                                Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF',
-                            shadow: true
-                        },
-                        credits: {
-                            enabled: false
-                        },
-                        series: [
-                            {
-                                name: "Total",
-                                data: [Number(data.graficasmedios.Medios.facebook),
-                                        Number(data.graficasmedios.Medios.google),
-                                        Number(data.graficasmedios.Medios.instagram),
-                                        Number(data.graficasmedios.Medios.whatsapp),
-                                        Number(data.graficasmedios.Medios.periodico),
-                                        Number(data.graficasmedios.Medios.ferias_vocacionales),
-                                        Number(data.graficasmedios.Medios.espectaculares),
-                                        Number(data.graficasmedios.Medios.visita_plantel),
-                                        Number(data.graficasmedios.Medios.publicidad_transporte_publico),
-                                        Number(data.graficasmedios.Medios.television),
-                                        Number(data.graficasmedios.Medios.recomendacion),
-                                        Number(data.graficasmedios.Medios.otros)]
-                            }
-                        ]
+                            ]
+                        }]
                     });
                 }
             });

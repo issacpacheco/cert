@@ -1,6 +1,6 @@
 <?php 
 session_start();
-error_reporting(E_ALL);
+error_reporting(0);
 include("../../../includes/class/allClass.php");
 include_once("../../../includes/funciones.php");
 
@@ -23,7 +23,6 @@ $fecha_fin = FormatoFechaReportes($fecha2);
 
 switch ($tipo){
     case "alumnos":
-
         $h = $get->obtener_graficas_alumnos($campus,$fecha_ini,$fecha_fin);
         $arreglocarreras = array("Carreras" => array("administracion_mercadotecnia"                      => $h['administracion_mercadotecnia'][0],
                                                     "derecho"                                            => $h['derecho'][0],
@@ -50,9 +49,11 @@ switch ($tipo){
         print_r($json);
     break;
     case "prospectos":
-        $arreglomedios = [];
-        $arreglocarreras = [];
-        $arregloinstituciones = [];
+        $arreglomedios          = [];
+        $arreglocarreras        = [];
+        $arregloinstituciones   = [];
+        $arreglohorario         = [];
+
         $g = $get->obtener_graficas_medios_prospectos($campus,$fecha_ini,$fecha_fin);
         $arreglomedios = array("Medios" => array("facebook"                          => $g['facebook'][0],
                                                     "google"                         => $g['google'][0],
@@ -87,15 +88,30 @@ switch ($tipo){
                                                     "medico_cirujano"                                    => $h['medico_cirujano'][0],
                                                     "turismo"                                            => $h['turismo'][0]));
         
-        $e = $get->obtener_graficas_instituciones($campus,$fecha_ini,$fecha_fin);
-        $ce = $fn->cuentarray($e);
-        for($i = 0; $i < $ce; $i++){
-            $arregloinstituciones["instituciones"]["escuelas"][$i] = array($e['institucion'][$i] => $e['total'][$i]);
-        }
+        $e = $get->obtener_graficas_instituciones_prospectos($campus,$fecha_ini,$fecha_fin);
+        // $ce = $fn->cuentarray($e);
+        // for($i = 0; $i < count($e['id']); $i++){
+        //     $arregloinstituciones["instituciones"][$i] = array("nombre" => (($e['institucion'][$i] !== "") ? $e['institucion'][$i] : 'Sin información'), "cantidad" => $e['total'][$i]);
+        // }
+
+        $o = $get->obtener_horario_preferencia_prospectos($campus,$fecha_ini,$fecha_fin);
+        $arreglohorario = array("horario" => array("matutino"       => $o['Matutino'][0],
+                                                    "vespertino"    => $o['Vespertino'][0],
+                                                    "indistinto"     => $o['Indistinto'][0]));
+
+        // var_dump($arreglohorario);
+        // var_dump($arreglocarreras);
+        // var_dump($arreglomedios);
+        // var_dump($arregloinstituciones);
+
         
-        $json['graficascarreras'] = $arreglocarreras;
-        $json['graficasmedios'] = $arreglomedios;
-        $json['graficasinstituciones'] = $arregloinstituciones;
+        $json['graficashorario']        = $arreglohorario;
+        $json['graficascarreras']       = $arreglocarreras;
+        $json['graficasmedios']         = $arreglomedios;
+        // for ($i=0; $i < 10; $i++) { 
+        //     $json['graficasinstituciones']['instituciones'][$i]  = array("cantidad" => $e['total'][$i], "nombre" => $e['institucion'][$i]);
+        // }
+        // $json['graficasinstituciones']  = $arregloinstituciones;
 
         $json = json_encode($json);
         print_r($json);
