@@ -295,7 +295,7 @@ else if (isset($_POST['id']))
 						minlength: 3
 					},
 					telefono: {
-						required: true,
+						required: false,
 						minlength:10,
 						maxlength:10,
 					},

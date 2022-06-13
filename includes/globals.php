@@ -4,7 +4,7 @@ $hora = date('H:i:s');
 $device = new Mobile_Detect;
 
 //CONFIG
-$GLOBALS['config_host'] = 'http://cert.edu.mx/';
+$GLOBALS['config_host'] = 'https://cert.edu.mx/';
 $GLOBALS['hoy'] = $hoy;
 $GLOBALS['hora'] = $hora;
 $GLOBALS['device'] = $device;

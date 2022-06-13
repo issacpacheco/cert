@@ -126,6 +126,14 @@
                                         <div id="container4" style="width:100%; height:400px;"></div>
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div id="container5" style="width:100%; height:400px;"></div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div id="container6" style="width:100%; height:400px;"></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -239,6 +247,7 @@
         }else if(tipo == 'aspirantes' || tipo == 'completos' || tipo == 'psicometrico' || tipo == 'diagnostico'){
             var list = "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17";
         }
+        
         $.ajax({
             type: "POST",
             url: "ajax/obtener_reportes",
@@ -376,226 +385,649 @@
                                 ]
                             }]
                         });
-                    }
-                    Highcharts.chart('container2', {
-                        chart: {
-                            type: 'bar'
-                        },
-                        title: {
-                            text: 'Grafica de ofertas educativas'
-                        },
-                        subtitle: {
-                            text: 'Medios donde se enterarón de nosotros'
-                        },
-                        xAxis: {
-                            categories: ['Administración y Mercadotecnia', 
-                                         'Derecho', 
-                                         'Educación Preescolar', 
-                                         'Educación Primaria (ISEN)', 
-                                         'Enfermería', 
-                                         'Fisioterapia', 
-                                         'Nutrición', 
-                                         'Psicología', 
-                                         'Enfermería en Cuidados Intensivos', 
-                                         'Enfermería Pediátrica', 
-                                         'Enfermería Quirúrgica', 
-                                         'Gestión y Docencia en los servicios de Enfermería',
-                                         'Derecho Procesal Penal',
-                                         'Innovación y Desarrollo Educativos',
-                                         'Salud Pública',
-                                         'Doctorado en Educación',
-                                         'Médico cirujano',
-                                         'Turismo'
-                                        ],
+                        Highcharts.chart('container2', {
+                            chart: {
+                                type: 'bar'
+                            },
                             title: {
-                                text: null
-                            }
-                        },
-                        yAxis: {
-                        min: 0,
-                        title: {
-                            text: 'Totales',
-                            align: 'high'
-                        },
-                        labels: {
-                            overflow: 'justify'
-                        }
-                        },
-                        tooltip: {
-                            valueSuffix: ' en total'
-                        },
-                        colors: [ '#AA4643', '#89A54E', '#80699B', '#3D96AE', '#DB843D', '#92A8CD', '#A47D7C', '#B5CA92' ],
-                        plotOptions: {
-                            bar: {
-                                dataLabels: {
-                                enabled: true
+                                text: 'Grafica de ofertas educativas'
+                            },
+                            subtitle: {
+                                text: 'Medios donde se enterarón de nosotros'
+                            },
+                            xAxis: {
+                                categories: ['Administración y Mercadotecnia', 
+                                            'Derecho', 
+                                            'Educación Preescolar', 
+                                            'Educación Primaria (ISEN)', 
+                                            'Enfermería', 
+                                            'Fisioterapia', 
+                                            'Nutrición', 
+                                            'Psicología', 
+                                            'Enfermería en Cuidados Intensivos', 
+                                            'Enfermería Pediátrica', 
+                                            'Enfermería Quirúrgica', 
+                                            'Gestión y Docencia en los servicios de Enfermería',
+                                            'Derecho Procesal Penal',
+                                            'Innovación y Desarrollo Educativos',
+                                            'Salud Pública',
+                                            'Doctorado en Educación',
+                                            'Médico cirujano',
+                                            'Turismo'
+                                            ],
+                                title: {
+                                    text: null
                                 }
                             },
-                            column: {
-                                colorByPoint: true
+                            yAxis: {
+                            min: 0,
+                            title: {
+                                text: 'Totales',
+                                align: 'high'
+                            },
+                            labels: {
+                                overflow: 'justify'
                             }
-                        },
-                        legend: {
-                            layout: 'vertical',
-                            align: 'right',
-                            verticalAlign: 'top',
-                            x: -40,
-                            y: 80,
-                            floating: true,
-                            borderWidth: 1,
-                            backgroundColor:
-                                Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF',
-                            shadow: true
-                        },
-                        credits: {
-                            enabled: false
-                        },
-                        series: [
-                            {
-                                name: "Total",
-                                data: [Number(data.graficascarreras.Carreras.administracion_mercadotecnia),
-                                        Number(data.graficascarreras.Carreras.derecho),
-                                        Number(data.graficascarreras.Carreras.educacion_preescolar),
-                                        Number(data.graficascarreras.Carreras.educacion_primaria),
-                                        Number(data.graficascarreras.Carreras.enfermeria),
-                                        Number(data.graficascarreras.Carreras.fisioterapia),
-                                        Number(data.graficascarreras.Carreras.nutricion),
-                                        Number(data.graficascarreras.Carreras.psicologia),
-                                        Number(data.graficascarreras.Carreras.enfermeria_cuidados_intensivos),
-                                        Number(data.graficascarreras.Carreras.enfermeria_pediatrica),
-                                        Number(data.graficascarreras.Carreras.enfermeria_quirurgica),
-                                        Number(data.graficascarreras.Carreras.gestion_docencia_servicios_enfermeria),
-                                        Number(data.graficascarreras.Carreras.derecho_procesal_penal),
-                                        Number(data.graficascarreras.Carreras.innovacion_desarrollo_educativos),
-                                        Number(data.graficascarreras.Carreras.salud_publica),
-                                        Number(data.graficascarreras.Carreras.doctorado_educacion),
-                                        Number(data.graficascarreras.Carreras.medico_cirujano),
-                                        Number(data.graficascarreras.Carreras.turismo)]
-                            }
-                        ]
-                    });
-                    // Highcharts.chart('container3', {
-                    //     chart: {
-                    //         type: 'column'
-                    //     },
-                    //     title: {
-                    //         text: 'Grafica de institución de procedencia'
-                    //     },
-                    //     subtitle: {
-                    //         text: ""
-                    //     },
-                    //     xAxis: {
-                    //         type: 'category',
-                    //         labels: {
-                    //         rotation: -45,
-                    //         style: {
-                    //             fontSize: '13px',
-                    //             fontFamily: 'Verdana, sans-serif'
-                    //         }
-                    //         }
-                    //     },
-                    //     yAxis: {
-                    //         min: 0,
-                    //         title: {
-                    //         text: 'Cantidad'
-                    //         }
-                    //     },
-                    //     legend: {
-                    //         enabled: false
-                    //     },
-                    //     colors: ['#89A54E', '#80699B', '#3D96AE', '#DB843D', '#92A8CD', '#A47D7C', '#B5CA92' ],
-                    //     tooltip: {
-                    //         pointFormat: 'Institución: <b>{point.y:.0f} registrados</b>'
-                    //     },
-                    //     plotOptions: {                            
-                    //         column: {
-                    //             colorByPoint: true
-                    //         }
-                    //     },
-                    //     series: [{
-                    //         name: 'Instituciones',
-                    //         data: [
-                    //             [data.graficasinstituciones.instituciones[0].nombre, Number(data.graficasinstituciones.instituciones[0].cantidad)],
-                    //             [data.graficasinstituciones.instituciones[1].nombre, Number(data.graficasinstituciones.instituciones[1].cantidad)],
-                    //             [data.graficasinstituciones.instituciones[2].nombre, Number(data.graficasinstituciones.instituciones[2].cantidad)],
-                    //             [data.graficasinstituciones.instituciones[3].nombre, Number(data.graficasinstituciones.instituciones[3].cantidad)],
-                    //             [data.graficasinstituciones.instituciones[4].nombre, Number(data.graficasinstituciones.instituciones[4].cantidad)],
-                    //             [data.graficasinstituciones.instituciones[5].nombre, Number(data.graficasinstituciones.instituciones[5].cantidad)],
-                    //             [data.graficasinstituciones.instituciones[6].nombre, Number(data.graficasinstituciones.instituciones[6].cantidad)],
-                    //             [data.graficasinstituciones.instituciones[7].nombre, Number(data.graficasinstituciones.instituciones[7].cantidad)],
-                    //             [data.graficasinstituciones.instituciones[8].nombre, Number(data.graficasinstituciones.instituciones[8].cantidad)],
-                    //             [data.graficasinstituciones.instituciones[9].nombre, Number(data.graficasinstituciones.instituciones[9].cantidad)]
-                    //         ],
-                    //         dataLabels: {
-                    //             enabled: true,
-                    //             rotation: -90,
-                    //             color: '#FFFFFF',
-                    //             align: 'right',
-                    //             format: '{point.y:.0f}', // one decimal
-                    //             y: 10, // 10 pixels down from the top
-                    //             style: {
-                    //                 fontSize: '13px',
-                    //                 fontFamily: 'Verdana, sans-serif'
-                    //             }
-                    //         }
-                    //     }]
-                    // });
-                    Highcharts.chart('container4', {
-                        chart: {
-                            plotBackgroundColor: null,
-                            plotBorderWidth: null,
-                            plotShadow: false,
-                            type: 'pie'
-                        },
-                        title: {
-                            text: 'Graficas de preferencias de horario'
-                        },
-                        tooltip: {
-                            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-                        },
-                        accessibility: {
-                            point: {
-                            valueSuffix: '%'
-                            }
-                        },
-                        plotOptions: {
-                            pie: {
-                            allowPointSelect: true,
-                            cursor: 'pointer',
-                            dataLabels: {
-                                enabled: true,
-                                format: '<b>{point.name}</b>: {point.percentage:.1f} %'
-                            }
-                            }
-                        },
-                        series: [{
-                            name: 'Brands',
-                            colorByPoint: true,
-                            data: [
+                            },
+                            tooltip: {
+                                valueSuffix: ' en total'
+                            },
+                            colors: [ '#AA4643', '#89A54E', '#80699B', '#3D96AE', '#DB843D', '#92A8CD', '#A47D7C', '#B5CA92' ],
+                            plotOptions: {
+                                bar: {
+                                    dataLabels: {
+                                    enabled: true
+                                    }
+                                },
+                                column: {
+                                    colorByPoint: true
+                                }
+                            },
+                            legend: {
+                                layout: 'vertical',
+                                align: 'right',
+                                verticalAlign: 'top',
+                                x: -40,
+                                y: 80,
+                                floating: true,
+                                borderWidth: 1,
+                                backgroundColor:
+                                    Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF',
+                                shadow: true
+                            },
+                            credits: {
+                                enabled: false
+                            },
+                            series: [
                                 {
-                                    name: 'Matutino',
-                                    y: Number(data.graficashorario.horario.matutino),
-                                    sliced: true,
-                                    selected: true
-                                }, {
-                                    name: 'Vespertino',
-                                    y: Number(data.graficashorario.horario.vespertino)
-                                }, {
-                                    name: 'Indistito',
-                                    y: Number(data.graficashorario.horario.indistinto)
+                                    name: "Total",
+                                    data: [Number(data.graficascarreras.Carreras.administracion_mercadotecnia),
+                                            Number(data.graficascarreras.Carreras.derecho),
+                                            Number(data.graficascarreras.Carreras.educacion_preescolar),
+                                            Number(data.graficascarreras.Carreras.educacion_primaria),
+                                            Number(data.graficascarreras.Carreras.enfermeria),
+                                            Number(data.graficascarreras.Carreras.fisioterapia),
+                                            Number(data.graficascarreras.Carreras.nutricion),
+                                            Number(data.graficascarreras.Carreras.psicologia),
+                                            Number(data.graficascarreras.Carreras.enfermeria_cuidados_intensivos),
+                                            Number(data.graficascarreras.Carreras.enfermeria_pediatrica),
+                                            Number(data.graficascarreras.Carreras.enfermeria_quirurgica),
+                                            Number(data.graficascarreras.Carreras.gestion_docencia_servicios_enfermeria),
+                                            Number(data.graficascarreras.Carreras.derecho_procesal_penal),
+                                            Number(data.graficascarreras.Carreras.innovacion_desarrollo_educativos),
+                                            Number(data.graficascarreras.Carreras.salud_publica),
+                                            Number(data.graficascarreras.Carreras.doctorado_educacion),
+                                            Number(data.graficascarreras.Carreras.medico_cirujano),
+                                            Number(data.graficascarreras.Carreras.turismo)]
                                 }
                             ]
-                        }]
-                    });
+                        });
+                        Highcharts.chart('container3', {
+                            chart: {
+                                type: 'column'
+                            },
+                            title: {
+                                text: 'Grafica de institución de procedencia'
+                            },
+                            subtitle: {
+                                text: ""
+                            },
+                            xAxis: {
+                                type: 'category',
+                                labels: {
+                                rotation: -45,
+                                style: {
+                                    fontSize: '13px',
+                                    fontFamily: 'Verdana, sans-serif'
+                                }
+                                }
+                            },
+                            yAxis: {
+                                min: 0,
+                                title: {
+                                text: 'Cantidad'
+                                }
+                            },
+                            legend: {
+                                enabled: false
+                            },
+                            colors: ['#89A54E', '#80699B', '#3D96AE', '#DB843D', '#92A8CD', '#A47D7C', '#B5CA92' ],
+                            tooltip: {
+                                pointFormat: 'Institución: <b>{point.y:.0f} registrados</b>'
+                            },
+                            plotOptions: {                            
+                                column: {
+                                    colorByPoint: true
+                                }
+                            },
+                            series: [{
+                                name: 'Instituciones',
+                                data: [
+                                    [data.graficasinstituciones.instituciones[0].nombre, Number(data.graficasinstituciones.instituciones[0].cantidad)],
+                                    [data.graficasinstituciones.instituciones[1].nombre, Number(data.graficasinstituciones.instituciones[1].cantidad)],
+                                    [data.graficasinstituciones.instituciones[2].nombre, Number(data.graficasinstituciones.instituciones[2].cantidad)],
+                                    [data.graficasinstituciones.instituciones[3].nombre, Number(data.graficasinstituciones.instituciones[3].cantidad)],
+                                    [data.graficasinstituciones.instituciones[4].nombre, Number(data.graficasinstituciones.instituciones[4].cantidad)],
+                                    [data.graficasinstituciones.instituciones[5].nombre, Number(data.graficasinstituciones.instituciones[5].cantidad)],
+                                    [data.graficasinstituciones.instituciones[6].nombre, Number(data.graficasinstituciones.instituciones[6].cantidad)],
+                                    [data.graficasinstituciones.instituciones[7].nombre, Number(data.graficasinstituciones.instituciones[7].cantidad)],
+                                    [data.graficasinstituciones.instituciones[8].nombre, Number(data.graficasinstituciones.instituciones[8].cantidad)],
+                                    [data.graficasinstituciones.instituciones[9].nombre, Number(data.graficasinstituciones.instituciones[9].cantidad)]
+                                ],
+                                dataLabels: {
+                                    enabled: true,
+                                    rotation: -90,
+                                    color: '#FFFFFF',
+                                    align: 'right',
+                                    format: '{point.y:.0f}', // one decimal
+                                    y: 10, // 10 pixels down from the top
+                                    style: {
+                                        fontSize: '13px',
+                                        fontFamily: 'Verdana, sans-serif'
+                                    }
+                                }
+                            }]
+                        });
+                        if(tipo == 'prospectos'){
+                            Highcharts.chart('container4', {
+                                chart: {
+                                    plotBackgroundColor: null,
+                                    plotBorderWidth: null,
+                                    plotShadow: false,
+                                    type: 'pie'
+                                },
+                                title: {
+                                    text: 'Graficas de preferencias de horario'
+                                },
+                                tooltip: {
+                                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                                },
+                                accessibility: {
+                                    point: {
+                                    valueSuffix: '%'
+                                    }
+                                },
+                                plotOptions: {
+                                    pie: {
+                                    allowPointSelect: true,
+                                    cursor: 'pointer',
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                                    }
+                                    }
+                                },
+                                series: [{
+                                    name: 'Brands',
+                                    colorByPoint: true,
+                                    data: [
+                                        {
+                                            name: 'Matutino',
+                                            y: Number(data.graficashorario.horario.matutino),
+                                            sliced: true,
+                                            selected: true
+                                        }, {
+                                            name: 'Vespertino',
+                                            y: Number(data.graficashorario.horario.vespertino)
+                                        }, {
+                                            name: 'Indistito',
+                                            y: Number(data.graficashorario.horario.indistinto)
+                                        }
+                                    ]
+                                }]
+                            });
+                        }
+                        if(tipo == 'aspirantes'){
+                            var cal = [];
+                            var edades = {};
+                            for(let i = 0; i < data.graficasrangoedad.rangos.length; i++){
+                                edades.name = data.graficasrangoedad.rangos[i].edad+" Años";
+                                edades.y    = Number(data.graficasrangoedad.rangos[i].total);
+                                cal.push({...edades});
+                            }
+                            JSON.stringify(cal)
+                            Highcharts.chart('container4', {
+                                chart: {
+                                    plotBackgroundColor: null,
+                                    plotBorderWidth: null,
+                                    plotShadow: false,
+                                    type: 'pie'
+                                },
+                                title: {
+                                    text: 'Grafica de edades'
+                                },
+                                tooltip: {
+                                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                                },
+                                accessibility: {
+                                    point: {
+                                    valueSuffix: '%'
+                                    }
+                                },
+                                plotOptions: {
+                                    pie: {
+                                    allowPointSelect: true,
+                                    cursor: 'pointer',
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                                    }
+                                    }
+                                },
+                                series: [{
+                                    name: 'Brands',
+                                    colorByPoint: true,
+                                    data: cal
+                                }]
+                            });
+                            Highcharts.chart('container5', {
+                                chart: {
+                                    plotBackgroundColor: null,
+                                    plotBorderWidth: null,
+                                    plotShadow: false,
+                                    type: 'pie'
+                                },
+                                title: {
+                                    text: 'Grafica de genero'
+                                },
+                                tooltip: {
+                                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                                },
+                                accessibility: {
+                                    point: {
+                                    valueSuffix: '%'
+                                    }
+                                },
+                                plotOptions: {
+                                    pie: {
+                                    allowPointSelect: true,
+                                    cursor: 'pointer',
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                                    }
+                                    }
+                                },
+                                series: [{
+                                    name: 'Brands',
+                                    colorByPoint: true,
+                                    data: [
+                                        {
+                                            name: 'Masculino',
+                                            y: Number(data.graficasgenero.generos.masculino),
+                                            sliced: true,
+                                            selected: true
+                                        }, {
+                                            name: 'Femenino',
+                                            y: Number(data.graficasgenero.generos.femenino)
+                                        }
+                                    ]
+                                }]
+                            });
+                            Highcharts.chart('container6', {
+                                chart: {
+                                    type: 'column'
+                                },
+                                title: {
+                                    text: 'Grafica de municipios'
+                                },
+                                subtitle: {
+                                    text: ""
+                                },
+                                xAxis: {
+                                    type: 'category',
+                                    labels: {
+                                    rotation: -45,
+                                    style: {
+                                        fontSize: '13px',
+                                        fontFamily: 'Verdana, sans-serif'
+                                    }
+                                    }
+                                },
+                                yAxis: {
+                                    min: 0,
+                                    title: {
+                                    text: 'Cantidad'
+                                    }
+                                },
+                                legend: {
+                                    enabled: false
+                                },
+                                colors: ['#89A54E', '#80699B', '#3D96AE', '#DB843D', '#92A8CD', '#A47D7C', '#B5CA92' ],
+                                tooltip: {
+                                    pointFormat: 'Institución: <b>{point.y:.0f} registrados</b>'
+                                },
+                                plotOptions: {                            
+                                    column: {
+                                        colorByPoint: true
+                                    }
+                                },
+                                series: [{
+                                    name: 'Municipios',
+                                    data: [
+                                        [data.graficasmunicipios.municipios[0].nombre, Number(data.graficasmunicipios.municipios[0].cantidad)],
+                                        [data.graficasmunicipios.municipios[1].nombre, Number(data.graficasmunicipios.municipios[1].cantidad)],
+                                        [data.graficasmunicipios.municipios[2].nombre, Number(data.graficasmunicipios.municipios[2].cantidad)],
+                                        [data.graficasmunicipios.municipios[3].nombre, Number(data.graficasmunicipios.municipios[3].cantidad)],
+                                        [data.graficasmunicipios.municipios[4].nombre, Number(data.graficasmunicipios.municipios[4].cantidad)],
+                                        [data.graficasmunicipios.municipios[5].nombre, Number(data.graficasmunicipios.municipios[5].cantidad)],
+                                        [data.graficasmunicipios.municipios[6].nombre, Number(data.graficasmunicipios.municipios[6].cantidad)],
+                                        [data.graficasmunicipios.municipios[7].nombre, Number(data.graficasmunicipios.municipios[7].cantidad)],
+                                        [data.graficasmunicipios.municipios[8].nombre, Number(data.graficasmunicipios.municipios[8].cantidad)],
+                                        [data.graficasmunicipios.municipios[9].nombre, Number(data.graficasmunicipios.municipios[9].cantidad)]
+                                    ],
+                                    dataLabels: {
+                                        enabled: true,
+                                        rotation: -90,
+                                        color: '#FFFFFF',
+                                        align: 'right',
+                                        format: '{point.y:.0f}', // one decimal
+                                        y: 10, // 10 pixels down from the top
+                                        style: {
+                                            fontSize: '13px',
+                                            fontFamily: 'Verdana, sans-serif'
+                                        }
+                                    }
+                                }]
+                            });
+                        }
+                    }else if(tipo == 'alumnos'){
+                        // var ar = [];
+                       
+                        Highcharts.chart('container', {
+                            chart: {
+                                plotBackgroundColor: null,
+                                plotBorderWidth: null,
+                                plotShadow: false,
+                                type: 'pie'
+                            },
+                            title: {
+                                text: 'Grafica de genero'
+                            },
+                            tooltip: {
+                                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                            },
+                            accessibility: {
+                                point: {
+                                valueSuffix: '%'
+                                }
+                            },
+                            plotOptions: {
+                                pie: {
+                                allowPointSelect: true,
+                                cursor: 'pointer',
+                                dataLabels: {
+                                    enabled: true,
+                                    format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                                }
+                                }
+                            },
+                            series: [{
+                                name: 'Brands',
+                                colorByPoint: true,
+                                data: [
+                                    {
+                                        name: 'Masculino',
+                                        y: Number(data.graficasgenero.generos.masculino),
+                                        sliced: true,
+                                        selected: true
+                                    }, {
+                                        name: 'Femenino',
+                                        y: Number(data.graficasgenero.generos.femenino)
+                                    }
+                                ]
+                            }]
+                        });
+                        Highcharts.chart('container2', {
+                            chart: {
+                                type: 'bar'
+                            },
+                            title: {
+                                text: 'Grafica de ofertas educativas'
+                            },
+                            subtitle: {
+                                text: 'Medios donde se enterarón de nosotros'
+                            },
+                            xAxis: {
+                                categories: ['Administración y Mercadotecnia', 
+                                            'Derecho', 
+                                            'Educación Preescolar', 
+                                            'Educación Primaria (ISEN)', 
+                                            'Enfermería', 
+                                            'Fisioterapia', 
+                                            'Nutrición', 
+                                            'Psicología', 
+                                            'Enfermería en Cuidados Intensivos', 
+                                            'Enfermería Pediátrica', 
+                                            'Enfermería Quirúrgica', 
+                                            'Gestión y Docencia en los servicios de Enfermería',
+                                            'Derecho Procesal Penal',
+                                            'Innovación y Desarrollo Educativos',
+                                            'Salud Pública',
+                                            'Doctorado en Educación',
+                                            'Médico cirujano',
+                                            'Turismo'
+                                            ],
+                                title: {
+                                    text: null
+                                }
+                            },
+                            yAxis: {
+                            min: 0,
+                            title: {
+                                text: 'Totales',
+                                align: 'high'
+                            },
+                            labels: {
+                                overflow: 'justify'
+                            }
+                            },
+                            tooltip: {
+                                valueSuffix: ' en total'
+                            },
+                            colors: [ '#AA4643', '#89A54E', '#80699B', '#3D96AE', '#DB843D', '#92A8CD', '#A47D7C', '#B5CA92' ],
+                            plotOptions: {
+                                bar: {
+                                    dataLabels: {
+                                    enabled: true
+                                    }
+                                },
+                                column: {
+                                    colorByPoint: true
+                                }
+                            },
+                            legend: {
+                                layout: 'vertical',
+                                align: 'right',
+                                verticalAlign: 'top',
+                                x: -40,
+                                y: 80,
+                                floating: true,
+                                borderWidth: 1,
+                                backgroundColor:
+                                    Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF',
+                                shadow: true
+                            },
+                            credits: {
+                                enabled: false
+                            },
+                            series: [
+                                {
+                                    name: "Total",
+                                    data: [Number(data.graficascarreras.Carreras.administracion_mercadotecnia),
+                                            Number(data.graficascarreras.Carreras.derecho),
+                                            Number(data.graficascarreras.Carreras.educacion_preescolar),
+                                            Number(data.graficascarreras.Carreras.educacion_primaria),
+                                            Number(data.graficascarreras.Carreras.enfermeria),
+                                            Number(data.graficascarreras.Carreras.fisioterapia),
+                                            Number(data.graficascarreras.Carreras.nutricion),
+                                            Number(data.graficascarreras.Carreras.psicologia),
+                                            Number(data.graficascarreras.Carreras.enfermeria_cuidados_intensivos),
+                                            Number(data.graficascarreras.Carreras.enfermeria_pediatrica),
+                                            Number(data.graficascarreras.Carreras.enfermeria_quirurgica),
+                                            Number(data.graficascarreras.Carreras.gestion_docencia_servicios_enfermeria),
+                                            Number(data.graficascarreras.Carreras.derecho_procesal_penal),
+                                            Number(data.graficascarreras.Carreras.innovacion_desarrollo_educativos),
+                                            Number(data.graficascarreras.Carreras.salud_publica),
+                                            Number(data.graficascarreras.Carreras.doctorado_educacion),
+                                            Number(data.graficascarreras.Carreras.medico_cirujano),
+                                            Number(data.graficascarreras.Carreras.turismo)]
+                                }
+                            ]
+                        });
+                        Highcharts.chart('container3', {
+                            chart: {
+                                type: 'column'
+                            },
+                            title: {
+                                text: 'Grafica de institución de procedencia'
+                            },
+                            subtitle: {
+                                text: ""
+                            },
+                            xAxis: {
+                                type: 'category',
+                                labels: {
+                                rotation: -45,
+                                style: {
+                                    fontSize: '13px',
+                                    fontFamily: 'Verdana, sans-serif'
+                                }
+                                }
+                            },
+                            yAxis: {
+                                min: 0,
+                                title: {
+                                text: 'Cantidad'
+                                }
+                            },
+                            legend: {
+                                enabled: false
+                            },
+                            colors: ['#89A54E', '#80699B', '#3D96AE', '#DB843D', '#92A8CD', '#A47D7C', '#B5CA92' ],
+                            tooltip: {
+                                pointFormat: 'Institución: <b>{point.y:.0f} registrados</b>'
+                            },
+                            plotOptions: {                            
+                                column: {
+                                    colorByPoint: true
+                                }
+                            },
+                            series: [{
+                                name: 'Instituciones',
+                                data: [
+                                    [data.graficasinstituciones.instituciones[0].nombre, Number(data.graficasinstituciones.instituciones[0].cantidad)],
+                                    [data.graficasinstituciones.instituciones[1].nombre, Number(data.graficasinstituciones.instituciones[1].cantidad)],
+                                    [data.graficasinstituciones.instituciones[2].nombre, Number(data.graficasinstituciones.instituciones[2].cantidad)],
+                                    [data.graficasinstituciones.instituciones[3].nombre, Number(data.graficasinstituciones.instituciones[3].cantidad)],
+                                    [data.graficasinstituciones.instituciones[4].nombre, Number(data.graficasinstituciones.instituciones[4].cantidad)],
+                                    [data.graficasinstituciones.instituciones[5].nombre, Number(data.graficasinstituciones.instituciones[5].cantidad)],
+                                    [data.graficasinstituciones.instituciones[6].nombre, Number(data.graficasinstituciones.instituciones[6].cantidad)],
+                                    [data.graficasinstituciones.instituciones[7].nombre, Number(data.graficasinstituciones.instituciones[7].cantidad)],
+                                    [data.graficasinstituciones.instituciones[8].nombre, Number(data.graficasinstituciones.instituciones[8].cantidad)],
+                                    [data.graficasinstituciones.instituciones[9].nombre, Number(data.graficasinstituciones.instituciones[9].cantidad)]
+                                ],
+                                dataLabels: {
+                                    enabled: true,
+                                    rotation: -90,
+                                    color: '#FFFFFF',
+                                    align: 'right',
+                                    format: '{point.y:.0f}', // one decimal
+                                    y: 10, // 10 pixels down from the top
+                                    style: {
+                                        fontSize: '13px',
+                                        fontFamily: 'Verdana, sans-serif'
+                                    }
+                                }
+                            }]
+                        });
+                        var cal = [];
+                        var edades = {};
+                        for(let i = 0; i < data.graficasrangoedad.rangos.length; i++){
+                            edades.name = data.graficasrangoedad.rangos[i].edad+" Años";
+                            edades.y    = Number(data.graficasrangoedad.rangos[i].total);
+                            cal.push({...edades});
+                        }
+                        JSON.stringify(cal)
+                        Highcharts.chart('container4', {
+                            chart: {
+                                plotBackgroundColor: null,
+                                plotBorderWidth: null,
+                                plotShadow: false,
+                                type: 'pie'
+                            },
+                            title: {
+                                text: 'Grafica de edades'
+                            },
+                            tooltip: {
+                                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                            },
+                            accessibility: {
+                                point: {
+                                valueSuffix: '%'
+                                }
+                            },
+                            plotOptions: {
+                                pie: {
+                                allowPointSelect: true,
+                                cursor: 'pointer',
+                                dataLabels: {
+                                    enabled: true,
+                                    format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                                }
+                                }
+                            },
+                            series: [{
+                                name: 'Brands',
+                                colorByPoint: true,
+                                data: cal
+                            }]
+                        });
+                    }
                 }
             });
         }
-        if(tipo == 'completos' || tipo == 'diagnostico' || tipo == 'psicometrico'){
-            var graf = document.getElementById("container");
-            graf.children[2].remove(graf);
+        if(tipo == 'completos' || tipo == 'diagnostico' || tipo == 'psicometrico' || tipo == 'alumnos'){
+            var graf1 = document.getElementById("container");
+            graf1.children[2].remove(graf1);
 
-            var graf = document.getElementById("container2");
-            graf.children[2].remove(graf);
+            var graf2 = document.getElementById("container1");
+            graf2.children[2].remove(graf2);
+
+            var graf3 = document.getElementById("container2");
+            graf3.children[2].remove(graf3);
+
+            var graf4 = document.getElementById("container3");
+            graf4.children[2].remove(graf4);
+
+            var graf5 = document.getElementById("container4");
+            graf5.children[2].remove(graf5);
+
+            var graf6 = document.getElementById("container5");
+            graf6.children[2].remove(graf6);
+
+            var graf7 = document.getElementById("container6");
+            graf7.children[2].remove(graf7);
         }
     }
 </script>

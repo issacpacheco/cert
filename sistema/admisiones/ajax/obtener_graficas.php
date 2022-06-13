@@ -1,8 +1,10 @@
 <?php 
 session_start();
-error_reporting(0);
+error_reporting(E_ALL);
 include("../../../includes/class/allClass.php");
 include_once("../../../includes/funciones.php");
+header('Content-Type: text/html; charset=utf-8');
+// header('Content-Type: text/html; charset=iso-8859-1');
 
 $tipo       = filter_input(INPUT_POST, 'tipo', FILTER_SANITIZE_SPECIAL_CHARS);
 $campus     = filter_input(INPUT_POST, 'campus', FILTER_SANITIZE_NUMBER_INT);
@@ -44,6 +46,21 @@ switch ($tipo){
                                                     "turismo"                                            => $h['turismo'][0]));
 
         $json['graficascarreras'] = $arreglocarreras;
+
+        $e = $get->obtener_rango_edad_alumnos($campus,$fecha_ini,$fecha_fin);
+        for($i = 0; $i < count($e['id']); $i++){
+            $json['graficasrangoedad']['rangos'][$i]  = array("edad" => $e['edad'][$i], "total" => $e['total'][$i]);
+        }
+
+        $a = $get->obtener_graficas_instituciones_alumnos($campus,$fecha_ini,$fecha_fin);
+        for ($i=0; $i < 10; $i++) { 
+            $json['graficasinstituciones']['instituciones'][$i]  = array("cantidad" => $a['total'][$i], "nombre" => utf8_encode(html_entity_decode($a['institucion'][$i])));
+        }
+
+        $g = $get->obtener_generos_alumnos($campus,$fecha_ini,$fecha_fin);
+        $arreglogeneros = array("generos" => array("masculino"  => $g['masculino'][0], "femenino" => $g['femenino'][0]));
+        $json['graficasgenero'] = $arreglogeneros;
+
 
         $json = json_encode($json);
         print_r($json);
@@ -87,31 +104,20 @@ switch ($tipo){
                                                     "doctorado_educacion"                                => $h['doctorado_educacion'][0],
                                                     "medico_cirujano"                                    => $h['medico_cirujano'][0],
                                                     "turismo"                                            => $h['turismo'][0]));
-        
-        $e = $get->obtener_graficas_instituciones_prospectos($campus,$fecha_ini,$fecha_fin);
-        // $ce = $fn->cuentarray($e);
-        // for($i = 0; $i < count($e['id']); $i++){
-        //     $arregloinstituciones["instituciones"][$i] = array("nombre" => (($e['institucion'][$i] !== "") ? $e['institucion'][$i] : 'Sin información'), "cantidad" => $e['total'][$i]);
-        // }
 
         $o = $get->obtener_horario_preferencia_prospectos($campus,$fecha_ini,$fecha_fin);
-        $arreglohorario = array("horario" => array("matutino"       => $o['Matutino'][0],
-                                                    "vespertino"    => $o['Vespertino'][0],
-                                                    "indistinto"     => $o['Indistinto'][0]));
+        $arreglohorario = array("horario" => array("matutino"           => $o['Matutino'][0],
+                                                    "vespertino"        => $o['Vespertino'][0],
+                                                    "indistinto"        => $o['Indistinto'][0]));
 
-        // var_dump($arreglohorario);
-        // var_dump($arreglocarreras);
-        // var_dump($arreglomedios);
-        // var_dump($arregloinstituciones);
+        $e = $get->obtener_graficas_instituciones_prospectos($campus,$fecha_ini,$fecha_fin);
+        for ($i=0; $i < 10; $i++) { 
+            $json['graficasinstituciones']['instituciones'][$i]  = array("cantidad" => $e['total'][$i], "nombre" => utf8_encode(html_entity_decode($e['institucion'][$i])));
+        }
 
-        
         $json['graficashorario']        = $arreglohorario;
         $json['graficascarreras']       = $arreglocarreras;
         $json['graficasmedios']         = $arreglomedios;
-        // for ($i=0; $i < 10; $i++) { 
-        //     $json['graficasinstituciones']['instituciones'][$i]  = array("cantidad" => $e['total'][$i], "nombre" => $e['institucion'][$i]);
-        // }
-        // $json['graficasinstituciones']  = $arregloinstituciones;
 
         $json = json_encode($json);
         print_r($json);
@@ -155,6 +161,26 @@ switch ($tipo){
         
         $json['graficascarreras'] = $arreglocarreras;
         $json['graficasmedios'] = $arreglomedios;
+
+        $e = $get->obtener_graficas_instituciones_aspirantes($campus,$fecha_ini,$fecha_fin);
+        for ($i=0; $i < 10; $i++) { 
+            $json['graficasinstituciones']['instituciones'][$i]  = array("cantidad" => $e['total'][$i], "nombre" => utf8_encode(html_entity_decode($e['institucion'][$i])));
+        }
+
+        $p = $get->obtener_generos_aspirantes($campus,$fecha_ini,$fecha_fin);
+        $arreglogeneros = array("generos" => array("masculino"  => $p['masculino'][0], "femenino" => $p['femenino'][0]));
+        $json['graficasgenero'] = $arreglogeneros;
+
+        $n = $get->obtener_rango_edad_aspirates($campus,$fecha_ini,$fecha_fin);
+        for($i = 0; $i < count($n['id']); $i++){
+            $json['graficasrangoedad']['rangos'][$i]  = array("edad" => $n['edad'][$i], "total" => $n['total'][$i]);
+        }
+        // var_dump($json['graficasrangoedad']['rangos']);
+
+        $m = $get->obtener_municipios_aspirantes($campus,$fecha_ini,$fecha_fin);
+        for ($a=0; $a < 10; $a++) { 
+            $json['graficasmunicipios']['municipios'][$a]  = array("cantidad" => $m['total'][$a], "nombre" => utf8_encode(html_entity_decode($m['municipio'][$a])));
+        }
 
         $json = json_encode($json);
         print_r($json);

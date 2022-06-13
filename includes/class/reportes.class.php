@@ -91,6 +91,31 @@ class reportes extends mysqlconsultas{
         return $res;
     }
 
+    public function obtener_graficas_alumnos_panel($campus){
+        $qry = "SELECT 
+                COUNT(CASE WHEN p.id_oferta = 1 OR p.id_oferta = 17 THEN 1 END) administracion_mercadotecnia,
+                COUNT(CASE WHEN p.id_oferta = 2 OR p.id_oferta = 18 THEN 1 END) derecho,
+                COUNT(CASE WHEN p.id_oferta = 3 OR p.id_oferta = 19 THEN 1 END) educacion_preescolar,
+                COUNT(CASE WHEN p.id_oferta = 4 THEN 1 END) educacion_primaria,
+                COUNT(CASE WHEN p.id_oferta = 5 OR p.id_oferta = 20 THEN 1 END) enfermeria,
+                COUNT(CASE WHEN p.id_oferta = 6 OR p.id_oferta = 21 THEN 1 END) fisioterapia,
+                COUNT(CASE WHEN p.id_oferta = 7 OR p.id_oferta = 23 THEN 1 END) nutricion,
+                COUNT(CASE WHEN p.id_oferta = 8 OR p.id_oferta = 24 THEN 1 END) psicologia,
+                COUNT(CASE WHEN p.id_oferta = 9 THEN 1 END) enfermeria_cuidados_intensivos,
+                COUNT(CASE WHEN p.id_oferta = 10 THEN 1 END) enfermeria_pediatrica,
+                COUNT(CASE WHEN p.id_oferta = 11 THEN 1 END) enfermeria_quirurgica,
+                COUNT(CASE WHEN p.id_oferta = 12 THEN 1 END) gestion_docencia_servicios_enfermeria,
+                COUNT(CASE WHEN p.id_oferta = 13 THEN 1 END) derecho_procesal_penal,
+                COUNT(CASE WHEN p.id_oferta = 14 THEN 1 END) innovacion_desarrollo_educativos,
+                COUNT(CASE WHEN p.id_oferta = 15 THEN 1 END) salud_publica,
+                COUNT(CASE WHEN p.id_oferta = 16 THEN 1 END) doctorado_educacion,
+                COUNT(CASE WHEN p.id_oferta = 22 THEN 1 END) medico_cirujano,
+                COUNT(CASE WHEN p.id_oferta = 25 THEN 1 END) turismo
+                FROM alumnos p WHERE p.id_campus = '".$campus."' ORDER BY p.fecha_registro";
+        $res = $this->consulta($qry);
+        return $res;
+    }
+
     public function obtener_graficas_medios_prospectos($campus, $fecha_ini, $fecha_fin){
         $qry = "SELECT 
                 COUNT(CASE WHEN p.medio = 1 THEN 1 END) facebook,
@@ -180,7 +205,7 @@ class reportes extends mysqlconsultas{
     }
 
     public function obtener_graficas_instituciones_prospectos($campus, $fecha_ini, $fecha_fin){
-        $qry ="SELECT id, COUNT(case when institucion = institucion THEN 1 end) as total, (CASE WHEN institucion = '' THEN 'SIN INFORMACION' ELSE replace(replace(replace (replace(replace(institucion,'Á', 'A'),'É','E'),'Í','I'),'Ó','O'),'Ú','U') END) AS institucion
+        $qry ="SELECT id, COUNT(case when institucion = institucion THEN 1 end) as total, (CASE WHEN institucion = '' THEN 'SIN INFORMACION' ELSE replace(replace(replace(replace(replace(replace(institucion,'Ñ','N'),'Á', 'A'),'É','E'),'Í','I'),'Ó','O'),'Ú','U') END) AS institucion
                 FROM prospectos 
                 WHERE id_campus = '".$campus."'  AND fecha_registro BETWEEN '".$fecha_ini."' AND '".$fecha_fin."'  GROUP BY institucion ORDER BY total DESC LIMIT 10";
         $res = $this->consulta($qry);
@@ -189,10 +214,99 @@ class reportes extends mysqlconsultas{
 
     public function obtener_horario_preferencia_prospectos($campus, $fecha_ini, $fecha_fin){
         $qry = "SELECT 
-                COUNT(CASE WHEN p.horario = 'Mañana' THEN 1 END) Matutino,
+                COUNT(CASE WHEN p.horario LIKE '%Manana%' THEN 1 END) Matutino,
                 COUNT(CASE WHEN p.horario = 'Tarde' THEN 1 END) Vespertino,
                 COUNT(CASE WHEN p.horario = 'Indistinto' THEN 1 END) Indistinto
                 FROM prospectos p WHERE p.id_campus = '".$campus."' AND p.fecha_registro BETWEEN '".$fecha_ini."' AND '".$fecha_fin."'";
+        $res = $this->consulta($qry);
+        return $res;
+    }
+
+    public function obtener_rango_edad_alumnos($campus, $fecha_ini, $fecha_fin){
+        $qry = "SELECT id, TIMESTAMPDIFF(YEAR,fecha_nac,CURDATE()) AS edad, 
+                (SELECT count(case when edad = TIMESTAMPDIFF(YEAR,fecha_nac,CURDATE()) THEN 1 END) AS EDADES from alumnos) AS total 
+                FROM alumnos 
+                WHERE id_campus = '".$campus."' AND fecha_registro BETWEEN '".$fecha_ini."' AND '".$fecha_fin."' GROUP BY edad ASC";
+        $res = $this->consulta($qry);
+        return $res;
+    }
+
+    public function obtener_rango_edad_alumnos_panel($campus){
+        $qry = "SELECT id, TIMESTAMPDIFF(YEAR,fecha_nac,CURDATE()) AS edad, 
+                (SELECT count(case when edad = TIMESTAMPDIFF(YEAR,fecha_nac,CURDATE()) THEN 1 END) AS EDADES from alumnos) AS total 
+                FROM alumnos 
+                WHERE id_campus = '".$campus."' GROUP BY edad ASC";
+        $res = $this->consulta($qry);
+        return $res;
+    }
+
+    public function obtener_graficas_instituciones_alumnos($campus, $fecha_ini, $fecha_fin){
+        $qry ="SELECT id, COUNT(case when institucion = institucion THEN 1 end) as total, (CASE WHEN institucion = '' THEN 'SIN INFORMACION' ELSE replace(replace(replace(replace(replace(replace(institucion,'Ñ','N'),'Á', 'A'),'É','E'),'Í','I'),'Ó','O'),'Ú','U') END) AS institucion
+                FROM alumnos 
+                WHERE id_campus = '".$campus."'  AND fecha_registro BETWEEN '".$fecha_ini."' AND '".$fecha_fin."'  GROUP BY institucion ORDER BY total DESC LIMIT 10";
+        $res = $this->consulta($qry);
+        return $res;
+    }
+
+    public function obtener_graficas_instituciones_alumnos_panel($campus){
+        $qry ="SELECT id, COUNT(case when institucion = institucion THEN 1 end) as total, (CASE WHEN institucion = '' THEN 'SIN INFORMACION' ELSE replace(replace(replace(replace(replace(replace(institucion,'Ñ','N'),'Á', 'A'),'É','E'),'Í','I'),'Ó','O'),'Ú','U') END) AS institucion
+                FROM alumnos 
+                WHERE id_campus = '".$campus."' GROUP BY institucion ORDER BY total DESC LIMIT 10";
+        $res = $this->consulta($qry);
+        return $res;
+    }
+
+    public function obtener_generos_alumnos($campus, $fecha_ini, $fecha_fin){
+        $qry = "SELECT COUNT(CASE WHEN genero = 'Masculino' THEN 1 END) masculino,
+                        COUNT(CASE WHEN genero = 'Femenino' THEN 1 END) femenino
+                FROM alumnos WHERE id_campus = '".$campus."'  AND fecha_registro BETWEEN '".$fecha_ini."' AND '".$fecha_fin."' ORDER BY fecha_registro";
+        $res = $this->consulta($qry);
+        return $res;
+    }
+
+    public function obtener_generos_alumnos_panel($campus){
+        $qry = "SELECT COUNT(CASE WHEN genero = 'Masculino' THEN 1 END) masculino,
+                        COUNT(CASE WHEN genero = 'Femenino' THEN 1 END) femenino
+                FROM alumnos WHERE id_campus = '".$campus."'";
+        $res = $this->consulta($qry);
+        return $res;
+    }
+
+    public function obtener_generos_aspirantes($campus, $fecha_ini, $fecha_fin){
+        $qry = "SELECT COUNT(CASE WHEN genero = 'Masculino' THEN 1 END) masculino,
+                        COUNT(CASE WHEN genero = 'Femenino' THEN 1 END) femenino
+                FROM aspirantes WHERE id_campus = '".$campus."'  AND fecha_registro BETWEEN '".$fecha_ini."' AND '".$fecha_fin."' ORDER BY fecha_registro";
+        $res = $this->consulta($qry);
+        return $res;
+    }
+
+    public function obtener_graficas_instituciones_aspirantes($campus, $fecha_ini, $fecha_fin){
+        $qry ="SELECT id, COUNT(case when institucion = institucion THEN 1 end) as total, (CASE WHEN institucion = '' THEN 'SIN INFORMACION' ELSE replace(replace(replace(replace(replace(replace(institucion,'Ñ','N'),'Á', 'A'),'É','E'),'Í','I'),'Ó','O'),'Ú','U') END) AS institucion
+                FROM aspirantes 
+                WHERE id_campus = '".$campus."'  AND fecha_registro BETWEEN '".$fecha_ini."' AND '".$fecha_fin."'  GROUP BY institucion ORDER BY total DESC LIMIT 10";
+        $res = $this->consulta($qry);
+        return $res;
+    }
+
+    public function obtener_rango_edad_aspirates($campus, $fecha_ini, $fecha_fin){
+        $qry = "SELECT id, TIMESTAMPDIFF(YEAR,fecha_nac,CURDATE()) AS edad, 
+                (SELECT count(case when edad = TIMESTAMPDIFF(YEAR,fecha_nac,CURDATE()) THEN 1 END) AS EDADES from aspirantes) AS total 
+                FROM aspirantes  
+                WHERE id_campus = '".$campus."' AND fecha_registro BETWEEN '".$fecha_ini."' AND '".$fecha_fin."' GROUP BY edad ASC";
+        $res = $this->consulta($qry);
+        return $res;
+    }
+
+    public function obtener_municipios_aspirantes($campus, $fecha_ini, $fecha_fin){
+        $qry = "SELECT id, COUNT(case when municipio = municipio THEN 1 end) as total, (CASE WHEN municipio = '' THEN 'SIN INFORMACION' ELSE replace(replace(replace(replace(replace(replace(municipio,'Ñ','N'),'Á', 'A'),'É','E'),'Í','I'),'Ó','O'),'Ú','U') END) AS municipio
+                FROM aspirantes 
+                WHERE id_campus = '".$campus."'  AND fecha_registro BETWEEN '".$fecha_ini."' AND '".$fecha_fin."'  GROUP BY municipio ORDER BY total DESC LIMIT 10";
+        $res = $this->consulta($qry);
+        return $res;
+    }
+
+    public function obtener_total_alumnos_inscritos_panel($campus){
+        $qry = "SELECT COUNT(id) AS total FROM alumnos WHERE id_campus = '$campus'";
         $res = $this->consulta($qry);
         return $res;
     }

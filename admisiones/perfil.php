@@ -572,7 +572,7 @@ else
 									<div class="row justify-content-center mb-5">
 										<div class="col-12 my-auto text-center">
 											<h4 class="text-center"><strong>Ya puedes presentar tu examen psicométrico.</strong></h4>
-											<a href="http://3.15.207.243/examen_psicometrico" class="btn btn-warning btn-lg mt-2"><i class="fas fa-pencil"></i> Presentar examen psicométrico</a>
+											<a href="http://cert.edu.mx/examen_psicometrico" class="btn btn-warning btn-lg mt-2"><i class="fas fa-pencil"></i> Presentar examen psicométrico</a>
 										</div>
 									</div>';
 								}
@@ -611,7 +611,7 @@ else
 									echo '
 										<div class="row justify-content-center">
 											<div class="col-12 mb-4"><h4 class="text-center"><strong>Podrás presentar tu examen de diagnóstico el día '.Fecha($val['fecha_examen_d']).'.</strong></h4>
-												<a href="http://3.15.207.243/examen_diagnostico" class="btn btn-info btn-block btn-lg"><i class="fas fa-pencil"></i> Presentar examen de diagnóstico</a>
+												<a href="http://cert.edu.mx/examen_diagnostico" class="btn btn-info btn-block btn-lg"><i class="fas fa-pencil"></i> Presentar examen de diagnóstico</a>
 											</div>
 										</div>';
 								}
@@ -734,7 +734,7 @@ else
 										<div class="row justify-content-center">
 											<div class="col-12 mb-4">
 												<h4 class="text-center"><strong>Ya puedes presentar tu examen psicométrico.</strong></h4>
-												<a href="http://3.15.207.243/examen_psicometrico" class="btn btn-warning btn-block btn-lg"><i class="fas fa-pencil"></i> Presentar examen psicométrico</a>
+												<a href="http://cert.edu.mx/examen_psicometrico" class="btn btn-warning btn-block btn-lg"><i class="fas fa-pencil"></i> Presentar examen psicométrico</a>
 											</div>
 										</div>';
 									}
@@ -832,7 +832,7 @@ else
 										<div class="row justify-content-center">
 											<div class="col-12 mb-4">
 												<h4 class="text-center"><strong>Ya puedes presentar tu examen psicométrico.</strong></h4>
-												<a href="http://3.15.207.243/examen_psicometrico" class="btn btn-warning btn-block btn-lg"><i class="fas fa-pencil"></i> Presentar examen psicométrico</a>
+												<a href="http://cert.edu.mx/examen_psicometrico" class="btn btn-warning btn-block btn-lg"><i class="fas fa-pencil"></i> Presentar examen psicométrico</a>
 											</div>
 										</div>';
 									}

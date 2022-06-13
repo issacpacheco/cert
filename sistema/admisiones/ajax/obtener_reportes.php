@@ -75,6 +75,9 @@ switch ($tipo){
     <?php } ?>
     </tbody>
 </table>
+<div>
+    <h2>Total de <?php echo $ca; ?> Alumnos registrados</h2>
+</div>
 <?php
     break;
     case "prospectos":
@@ -114,6 +117,9 @@ switch ($tipo){
     <?php } ?>
     </tbody>
 </table>
+<div>
+    <h2>Total de <?php echo $ca; ?> Prospectos registrados</h2>
+</div>
 <?php
     break;
     case "aspirantes":
@@ -169,6 +175,9 @@ switch ($tipo){
     <?php } ?>
     </tbody>
 </table>
+<div>
+    <h2>Total de <?php echo $ca; ?> Aspirantes registrados</h2>
+</div>
 <?php
     break;
     case "completos":
