@@ -9,3 +9,12 @@ RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME}.php -f
 RewriteRule ^(.*)$ $1.php
+Rewriterule ^licenciatura/(.+)$ licenciatura.php?id=$1
+
+RewriteCond %{HTTP_HOST} ^sice.cert.edu.mx$
+RewriteCond %{REQUEST_URI} !^/sice/
+RewriteRule (.*) /sice/$1
+
+
+
+

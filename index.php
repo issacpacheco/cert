@@ -1,5 +1,11 @@
 <?php
 $p = basename( __FILE__, ".php" );
+$sub_dominio = explode('.',$_SERVER['SERVER_NAME']);
+$_SESSION['campus'] = $sub_dominio[0];
+if ($_SESSION['campus'] != 'ticul' && $_SESSION['campus'] != 'merida')
+{
+	header('location:campus');
+}
 ?>
 <!doctype html>
 <html class="no-js" lang="es">
@@ -181,7 +187,6 @@ $p = basename( __FILE__, ".php" );
             </div>
         </div>
     </section>
-	
 	
 	
 	<div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

@@ -1,4 +1,5 @@
 <?php
+include('includes/config.php');
 $p = basename( __FILE__, ".php" );
 ?>
 <!doctype html>

@@ -18,7 +18,7 @@
 			<div class="row">
 				<div class="col-12">
 					<div class="embed-responsive embed-responsive-16by9">
-						<iframe class="embed-responsive-item" src="http://3.15.207.243/sistema/archivos/<?php echo $_GET['token'].'/'.$_GET['recurso'];?>" allowfullscreen></iframe>
+						<iframe class="embed-responsive-item" src="https://cert.edu.mx/sistema/archivos/<?php echo $_GET['token'].'/'.$_GET['recurso'];?>" allowfullscreen></iframe>
 					</div>
 				</div>
 			</div>

@@ -616,7 +616,7 @@ $d['pass'] = $d['pass']!=''?$d['pass']:'1234';
 								
 																
 								<div class="row">
-									<div class="col-sm-8">
+									<div class="col-sm-4">
 										<?php
 										if ($_POST['editar'] == 1)
 										{
@@ -641,6 +641,13 @@ $d['pass'] = $d['pass']!=''?$d['pass']:'1234';
 										}
 										?>
 									</div>
+									<?php if($_SESSION['campus'] == 1 && $_SESSION['id_admin'] == 2){ ?>
+									<div class="col-sm-4">
+										<input type="hidden" name="validacion" value="<?php echo $d['id']; ?>">
+										<input type="hidden" name="id" value="<?php echo $d['id']; ?>">
+										<button type="submit" class="btn btn-md btn-info btn-lg btn-block" title="Validar"><i class="fas fa-check"></i> Validar</button>
+									</div>
+									<?php } ?>
 									<div class="col-sm-4">
 										<a href="aspirantes" class="btn btn-default btn-lg btn-block">Cancelar <i class="fas fa-times"></i></a>
 									</div>

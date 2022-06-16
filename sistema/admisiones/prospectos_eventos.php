@@ -1,16 +1,25 @@
 <?php 
 include("includes/config.php");
+error_reporting(E_ALL);
+if (isset($_POST['editar']))
+{
+	
+	mysqli_query($conexion,"UPDATE prospectos_eventos SET
+		oferta = '".mysqli_real_escape_string($conexion,$_POST['oferta'])."',
+		nombre = '".mb_strtoupper(mysqli_real_escape_string($conexion,$_POST['nombre']),'UTF-8')."',
+		correo = '".mysqli_real_escape_string($conexion,$_POST['correo'])."',
+		telefono = '".mysqli_real_escape_string($conexion,$_POST['telefono'])."',
+		institucion = '".mb_strtoupper(mysqli_real_escape_string($conexion,$_POST['institucion']),'UTF-8')."'
+		WHERE id = '".$_POST['id']."'");
+	$id = $_POST['id'];
+}
+if (isset($_POST['eliminar']))
+{
+	mysqli_query($conexion,"DELETE FROM prospectos_eventos WHERE id = '".$_POST['id']."' LIMIT 1");
+}
 
-include("../../includes/class/allClass.php");
 
-use nsaspirantes\aspirantes;
-use nsfunciones\funciones;
 
-$get = new aspirantes();
-$fn = new funciones();
-
-$a = $get->obtener_aspirantes_reimpresion($_SESSION['campus']);
-$ca = $fn->cuentarray($a);
 
 ?>
 <!DOCTYPE html>
@@ -59,35 +68,66 @@ $ca = $fn->cuentarray($a);
                 <div class="col-sm-12">
                     <div class="panel">
                         <div class="panel-heading">
-                            Reimpresión de fichas
+                            OPEN HOUSE
                         </div>
                         <div class="panel-body">
 							<table class="table table-striped table-bordered table-hover nowrap" id="tabla">
 								<thead>
 									<tr>
-										<th> Nombre </th>
-										<th> Oferta </th>
-										<th> Correo </th>
-										<th> Teléfono </th>
-                                        <th> Reimprimir ficha</th>
+										<th data-priority="1"> Nombre </th>
+										<th data-priority="2"> Licenciatura </th>
+										<th data-priority="3"> Fecha </th>
+										<th data-priority="4"> Correo </th>
+										<th data-priority="5"> Teléfono </th>
+										<th> Institución de procedencia </th>
+										<th><i class="fas fa-search"></i> Ver</button></th>
+										<?php 
+										if ($_SESSION['nivel']==1)
+										{
+											echo '
+											<th> <i class="fas fa-trash"></i> </th>';
+										}
+										?>
+										
 									</tr>
 								</thead>
 								<tbody>
-								<?php for($i = 0; $i < $ca; $i++){ ?>
-									<tr class="<?php echo $class ?>">
-										<td><?php echo utf8_encode($a['nombre'][$i].' '.$a['paterno'][$i].' '.$a['materno'][$i]); ?></td>
-										<td><?php echo utf8_encode($a['oferta_educativa'][$i]); ?></td>
-										<td><?php echo utf8_encode($a['correo'][$i]); ?></td>
-										<td><?php echo utf8_encode($a['telefono'][$i]); ?></td>
-                                        <td>
-                                            <form action="ficha_pago" method="post">
-                                                <input type="hidden" name="id" value="<?php echo $a['id'][$i]; ?>">
-												<input type="hidden" name="pagina" value="reimpresion_fichas">
-                                                <button type="submit" class="btn btn-md btn-success btn-block"><i class="fas fa-id-card-alt"></i> Reimprimir Ficha</button>
-                                            </form>
-                                        </td>
-									</tr>
-								<?php } ?>
+								<?php
+								$consulta = mysqli_query($conexion,"SELECT * FROM prospectos_eventos ORDER BY fecha_registro DESC");
+								while ($d = mysqli_fetch_array($consulta))
+								{	
+									if ($_SESSION['nivel'] == 1)
+									{
+										$opc = '
+										<td> 
+											<form action="prospectos_eventos_abc" method="post">
+												<input type="hidden" name="eliminar" value="1">
+												<input type="hidden" name="id" value="'.$d['id'].'">
+												<button type="submit" class="btn btn-md btn-danger btn-block"><i class="fas fa-trash"></i> Eliminar</button>
+											</form>
+										</td>';
+									}
+
+									echo '
+										<tr class="'.$class.'">
+											<td>'.$d['nombre'].'</td>
+											<td>'.$d['oferta'].'</td>
+											<td data-sort="'.substr($d['fecha_registro'],0,4).substr($d['fecha_registro'],5,2).substr($d['fecha_registro'],8,2).'">'.FechaCorta($d['fecha_registro']).'</td>
+											<td>'.$d['correo'].'</td>
+											<td>'.$d['telefono'].'</td>
+											<td>'.$d['institucion'].'</td>
+											<td> 
+												<form action="prospectos_eventos_abc" method="post">
+													<input type="hidden" name="editar" value="1">
+													<input type="hidden" name="id" value="'.$d['id'].'">
+													<button type="submit" class="btn btn-md btn-info btn-block"><i class="fas fa-search"></i> Ver</button>
+												</form>
+											</td>
+											'.$opc.'											
+										</tr>';
+								}
+								?>
+									 
 								</tbody>
 							</table>
                         </div>
@@ -128,7 +168,6 @@ $ca = $fn->cuentarray($a);
 						"ordering": true,
 						"paging": true,
 						"searching": true,
-						"stateSave": true,
 						"info": true,
 						"fixedHeader": true,
 						"autoFill": false,
@@ -139,37 +178,38 @@ $ca = $fn->cuentarray($a);
 						"pageLength": 50,
 						"order": [[ 2, "desc" ]],
 						"buttons": [
-							// {
-							// 	extend: 'excel',
-							// 	exportOptions: {
-							// 		columns: [0,1,2,3,4]
-							// 	},
-							// 	text: 'Excel <i class="fal fa-file-excel"></i>',
-							// 	messageTop: '',
-							// 	footer: true
-							// },
-							// {
-							// 	extend: 'pdfHtml5',
-                			// 	orientation: 'landscape',
-							// 	exportOptions: {
-							// 		columns: [0,1,2,3,4]
-							// 	},
-							// 	text: 'PDF <i class="fal fa-file-pdf"></i>',
-							// 	messageTop: 'LISTA DE ASPIRANTES REGISTRADOS',
-							// 	footer: true
-							// },
-							// {
-							// 	extend: 'print',
-							// 	exportOptions: {
-							// 		columns: [0,1,2,3,4]
-							// 	},
-							// 	text: 'Imprimir <i class="fal fa-print"></i>',
-							// 	messageTop: '',
-							// 	footer: true
-							// },
+							{
+								extend: 'excel',
+								exportOptions: {
+									columns: [0,1,2,3,4,5]
+								},
+								text: 'Excel <i class="fal fa-file-excel"></i>',
+								messageTop: '',
+								footer: true
+							},
+							{
+								extend: 'pdfHtml5',
+                				orientation: 'landscape',
+								exportOptions: {
+									columns: [0,1,2,3,4,5]
+								},
+								text: 'PDF <i class="fal fa-file-pdf"></i>',
+								messageTop: 'Prospectos',
+								footer: true
+							},
+							{
+								extend: 'print',
+								exportOptions: {
+									columns: [0,1,2,3,4,5]
+								},
+								text: 'Imprimir <i class="fal fa-print"></i>',
+								messageTop: '',
+								footer: true
+							},
 						]
 					} );
 				});
+				
 			</script>            
         </div>
 

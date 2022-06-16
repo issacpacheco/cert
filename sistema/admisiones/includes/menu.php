@@ -15,6 +15,19 @@
                     <span>Inicio</span>
                 </a>
             </li>
+			<?php
+			if ($_SESSION['campus']==1)
+			{
+			?>
+				<li>
+                <a href="prospectos_eventos">
+                    <i class="fas fa-door-open"></i>
+                    <span>Open House</span>
+                </a>
+            </li>
+			<?php
+			}
+			?>
 			<li>
                 <a href="prospectos">
                     <i class="fas fa-user-plus"></i>

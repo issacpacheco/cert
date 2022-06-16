@@ -186,7 +186,7 @@ class almacen extends mysqlconsultas{
                     FROM inv_salida_transferencia e
                     LEFT JOIN inv_productos p ON p.id = e.id_producto
                     LEFT JOIN inv_usuario u ON u.id = e.id_usuario
-                    WHERE e.id_campus = {$_SESSION['campus']} AND p.id_area = {$_SESSION['area']}
+                    WHERE e.id_campus = {$_SESSION['campus']} AND p.id_area = {$_SESSION['area']} GROUP BY e.codigo_transfer
                     ORDER BY e.fecha DESC, e.hora DESC";
             $res = $this->consulta($qry);
             return $res;
@@ -615,6 +615,23 @@ class almacen extends mysqlconsultas{
     public function editar_salida_productos($idcampus, $id_producto){
         $qry = "SELECT * FROM inv_salida_producto WHERE id_campus = $idcampus AND id_producto = $id_producto";
         $res = $this->consulta($qry);
+        return $res;
+    }
+
+    public function obtener_proyectos(){
+        $qry = "SELECT * FROM inv_proyectos";
+        $res = $this->consulta($qry);
+        return $res;
+    }
+
+    public function obtener_proyecto($id){
+        $qry = "SELECT s.id, m.id AS idmaterial, SUM(s.cantidad) AS total, p.nombre, m.nombre AS nombrematerial, (SUM(s.cantidad) * c.precio) AS totalxmaterial, c.precio
+                FROM inv_salida_producto s 
+                LEFT JOIN inv_proyectos p ON p.id = s.proyecto 
+                LEFT JOIN inv_productos m ON m.id = s.id_producto 
+                LEFT JOIN inv_campus_producto c ON c.id_producto = m.id 
+                WHERE s.proyecto = $id AND c.id_campus = {$_SESSION['campus']} GROUP BY s.id_producto";
+        $res = $this -> consulta($qry);
         return $res;
     }
 

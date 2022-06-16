@@ -1,4 +1,5 @@
 <?php
+include('includes/config.php');
 $p = basename( __FILE__, ".php" );
 ?>
 <!doctype html>
@@ -269,9 +270,24 @@ $p = basename( __FILE__, ".php" );
 								<h4 class="text-primary text-center">O también puedes descargar la Convocatoria oficial.</h4>
 							</div>
 							<div class="col-12 col-lg-1 text-lg-left text-center">
+								<?php
+								if ($_GET['campus']=='ticul')
+								{
+								?>
+								<a href="ver.php?token=convocatorias&recurso=Convocatoria_para_ingreso_a_Licenciatura_TIcul_2022.pdf" target="_blank">
+									<div class="rectangle-rounded-small bg-primary text-white mx-auto"><i class="fas fa-file-pdf"></i></div>
+								</a>
+								<?php
+								}
+								else
+								{
+								?>
 								<a href="ver.php?token=convocatorias&recurso=Convocatoria_para_ingreso_a_Licenciatura.pdf" target="_blank">
 									<div class="rectangle-rounded-small bg-primary text-white mx-auto"><i class="fas fa-file-pdf"></i></div>
 								</a>
+								<?php
+								}
+								?>
 							</div>
 						</div>
 						
@@ -824,7 +840,7 @@ $p = basename( __FILE__, ".php" );
 							
 						<div class="row justify-content-center my-4">
 							<div class="col-12 col-lg-3">
-								<a href="http://cert.edu.mx/agendar" target="_blank">
+								<a href="https://cert.edu.mx/agendar" target="_blank">
 									<div class="circle bg-primary text-white mx-auto"><i class="fas fa-calendar-alt"></i></div>
 									<h4 class="text-primary text-center my-2">Asesoría online</h4>
 								</a>

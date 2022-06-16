@@ -25,7 +25,8 @@ if (isset($_POST['alta']))
 	'".mb_strtoupper(mysqli_real_escape_string($conexion,$_POST['institucion']),'UTF-8')."',
 	'".mysqli_real_escape_string($conexion,$_POST['medio'])."',
 	'',
-	'".$hoy."'
+	'".$hoy."',
+	'".mysqli_real_escape_string($conexion,$_POST['ranking'])."'
 	)");
 	$id = mysqli_insert_id($conexion);
 
@@ -197,7 +198,8 @@ if (isset($_POST['editar']))
 		telefono = '".mysqli_real_escape_string($conexion,$_POST['telefono'])."',
 		horario = '".mysqli_real_escape_string($conexion,$_POST['horario'])."',
 		institucion = '".mb_strtoupper(mysqli_real_escape_string($conexion,$_POST['institucion']),'UTF-8')."',
-		medio = '".mysqli_real_escape_string($conexion,$_POST['medio'])."'
+		medio = '".mysqli_real_escape_string($conexion,$_POST['medio'])."',
+		ranking = '".mysqli_real_escape_string($conexion,$_POST['ranking'])."'
 		WHERE id = '".$_POST['id']."'");
 	$id = $_POST['id'];
 }
@@ -570,12 +572,13 @@ if (isset($_POST['importar']))
 										<th data-priority="1"> Nombre </th>
 										<th data-priority="2"> Oferta </th>
 										<th data-priority="3"> Fecha </th>
-										<th data-priority="5"> Correo </th>
-										<th data-priority="6"> Teléfono </th>
+										<th data-priority="6"> Correo </th>
+										<th data-priority="7"> Teléfono </th>
+										<th data-priority="5"> Ranking </th>
 										<th> Horario de contacto </th>
 										<th> Institución de procedencia </th>
 										<th> Medio </th>
-										<th data-priority="7"> Último Comentario</th>
+										<th data-priority="8"> Último Comentario</th>
 										<th data-priority="4"><i class="fas fa-search"></i> Ver </th>
 										<?php 
 										if ($_SESSION['nivel']==1)
@@ -627,6 +630,12 @@ if (isset($_POST['importar']))
 										</td>';
 									}
 
+									$cestrellas = $d['ranking'];
+									$estrellas = '';
+									for($e = 0; $e < $cestrellas; $e++){
+										$estrellas .= '<i class="fas fa-star" style="color:#0ec8a2;"></i>';
+									}
+
 									echo '
 										<tr class="'.$class.'">
 											<td>'.$d['nombre'].'</td>
@@ -634,6 +643,7 @@ if (isset($_POST['importar']))
 											<td data-sort="'.substr($d['fecha_registro'],0,4).substr($d['fecha_registro'],5,2).substr($d['fecha_registro'],8,2).'">'.FechaCorta($d['fecha_registro']).'</td>
 											<td>'.$d['correo'].'</td>
 											<td>'.$d['telefono'].'</td>
+											<td>'.$estrellas.'</td>
 											<td>'.$d['horario'].'</td>
 											<td>'.$d['institucion'].'</td>
 											<td>'.$d['nombremedio'].'</td>
@@ -690,6 +700,7 @@ if (isset($_POST['importar']))
 						"ordering": true,
 						"paging": true,
 						"searching": true,
+						"stateSave": true,
 						"info": true,
 						"fixedHeader": true,
 						"autoFill": false,

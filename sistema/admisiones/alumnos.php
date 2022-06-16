@@ -236,6 +236,7 @@ if(isset($_POST['eliminar'])){
 						"ordering": true,
 						"paging": true,
 						"searching": true,
+						"stateSave": true,
 						"info": true,
 						"fixedHeader": true,
 						"autoFill": false,

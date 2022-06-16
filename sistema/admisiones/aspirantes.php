@@ -1,6 +1,6 @@
 <?php 
 include("includes/config.php");
-error_reporting(E_ALL);
+error_reporting(0);
 if (isset($_POST['alta']))
 {
 	$_POST['fecha_nac'] = substr($_POST['fecha_nac'],6,4).'-'.substr($_POST['fecha_nac'],3,2).'-'.substr($_POST['fecha_nac'],0,2);
@@ -598,11 +598,20 @@ if (isset($_POST['inscrito']))
 									$consulta1 = mysqli_query($conexion,"SELECT * FROM oferta_educativa WHERE id = '".$d['id_oferta']."'");
 									$d1 = mysqli_fetch_array($consulta1);
 									
-									$opc = '<form action="aspirantes" method="post" id="validacion_'.$d['id'].'">
+									if($_SESSION['campus'] == 1 && $_SESSION['id_admin'] == 2){
+										$opc = '<form action="aspirantes" method="post" id="validacion_'.$d['id'].'">
 												<input type="hidden" name="validacion" value="1">
 												<input type="hidden" name="id" value="'.$d['id'].'">
 												<button type="button" class="btn btn-md btn-info btn-block" onClick="Validacion('.$d['id'].')" data-toggle="tooltip" data-placement="top" title="Validar"><i class="fas fa-check"></i> Validar</button>
 											</form>';
+									}else if($_SESSION['campus'] == 2){
+										$opc = '<form action="aspirantes" method="post" id="validacion_'.$d['id'].'">
+												<input type="hidden" name="validacion" value="1">
+												<input type="hidden" name="id" value="'.$d['id'].'">
+												<button type="button" class="btn btn-md btn-info btn-block" onClick="Validacion('.$d['id'].')" data-toggle="tooltip" data-placement="top" title="Validar"><i class="fas fa-check"></i> Validar</button>
+											</form>';
+									}
+									
 									if ($d['id_oferta']=='3' || $d['id_oferta']=='4' || $d['id_oferta']=='19')
 									{
 										$opc.='<form action="aspirantes_matricula" method="post">
@@ -790,6 +799,7 @@ if (isset($_POST['inscrito']))
 						"ordering": true,
 						"paging": true,
 						"searching": true,
+						"stateSave": true,
 						"info": true,
 						"fixedHeader": true,
 						"autoFill": false,

@@ -1,4 +1,5 @@
 <?php
+include('includes/config.php');
 $p = basename( __FILE__, ".php" );
 ?>
 <!doctype html>
@@ -80,9 +81,9 @@ $p = basename( __FILE__, ".php" );
 			</div>
 			<div class="col-12 col-md-4 my-auto px-4">
 				<h1>Enfermería</h1>
-				<p class="text-start">La licenciatura en Enfermería del CERT, se distingue por egresar enfermeros que son reconocidos por su preparación académica, debido a que la institución cuenta con docentes especialistas y les ofrece a sus estudiantes una práctica personalizada orientada a la adquisición de conocimientos esenciales que apoyen su desempeño en el mundo laboral. Con una duración de cuatro años de trayecto académico y un año de servicio social, el enfermero CERT realiza prácticas comunitarias en los centros de salud y prácticas hospitalarias en el Hospital Regional de Alta Especialidad de Yucatán, el Hospital Militar Regional de Especialidades, el Hospital Regional del ISSSTE “Elvia Carrillo Puerto”, la Clínica Hospital del ISSSTE en Susulá y el Hospital General Dr. Agustín O’Horán.</p>
+				<p class="text-start">La licenciatura en Enfermería del CERT, se distingue por egresar enfermeros que son reconocidos por su preparación académica, debido a que la institución cuenta con docentes especialistas y les ofrece a sus estudiantes una práctica personalizada orientada a la adquisición de conocimientos esenciales que apoyen su desempeño en el mundo laboral. Con una duración de cuatro años de trayecto académico y un año de servicio social, el enfermero CERT realiza prácticas comunitarias en los centros de salud y prácticas hospitalarias en el Hospital Regional de Alta Especialidad de Yucatán, el Hospital Militar Regional de Especialidades, el Hospital Regional del ISSSTE "Elvia Carrillo Puerto", la Clínica Hospital del ISSSTE en Susulá y el Hospital General Dr. Agustín O’Horán.</p>
 				<div class="d-grid gap-2 d-md-block">
-					<a href="admisiones/prospectos" target="_blank" class="btn-primary btn-lg btn-block">
+					<a href="licenciatura/enfermeria" class="btn-primary btn-lg btn-block">
 					   Más información
 					</a>
 				</div>

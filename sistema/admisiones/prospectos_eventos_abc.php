@@ -1,9 +1,5 @@
 <?php 
 include("includes/config.php");
-if ($_SESSION['nivel']==2)
-{
-	$_POST['campus'] = $_SESSION['campus'];
-}
 if (!isset($_POST['id']))
 {
 	//Nueva 
@@ -11,12 +7,8 @@ if (!isset($_POST['id']))
 }
 else if (isset($_POST['id']))
 {
-	$consulta = mysqli_query($conexion,"SELECT p.*, m.nombre as nombremedio FROM prospectos p LEFT JOIN medios m ON m.id = p.medio WHERE p.id = '".$_POST['id']."' LIMIT 1");
+	$consulta = mysqli_query($conexion,"SELECT * FROM prospectos_eventos WHERE id = '".$_POST['id']."' LIMIT 1");
 	$d = mysqli_fetch_array($consulta);
-	if ($d['fecha_nac'] != '0000-00-00')
-	{
-		$d['fecha_nac'] = substr($d['fecha_nac'],8,2).'/'.substr($d['fecha_nac'],5,2).'/'.substr($d['fecha_nac'],0,4);
-	}
 	if ($_POST['editar'] == 1)
 	{
 		//Editar
@@ -74,7 +66,7 @@ else if (isset($_POST['id']))
                             <?php echo $titulo;?>
                         </div>
                         <div class="panel-body">
-							<form action="prospectos" method="post" id="form_abc" enctype="multipart/form-data">
+							<form action="prospectos_eventos" method="post" id="form_abc" enctype="multipart/form-data">
 								<div class="row">
 									<div class="form-wrapper col-sm-4">
 										<label>Nombre</label>
@@ -84,31 +76,21 @@ else if (isset($_POST['id']))
 									</div>
 									<div class="form-wrapper col-sm-4">
 										<div class="form-group">
-											<label>Oferta educativa</label>
-											<select name="id_oferta" class="form-control" id="id_oferta">
-												<?php 
-												$consulta1 = mysqli_query($conexion,"SELECT * FROM niveles_academicos WHERE id >= 5");
-												while ($d1 = mysqli_fetch_array($consulta1))
-												{
-													$consulta2 = mysqli_query($conexion,"SELECT * FROM oferta_educativa WHERE id_campus = '".$_SESSION['campus']."' AND id_nivel = '".$d1['id']."'");	
-													if (mysqli_num_rows($consulta2)==0)
+											<label>Licenciatura</label>
+											<select name="oferta" class="form-control" id="oferta">
+												<?php
+													$consulta1 = mysqli_query($conexion,"SELECT DISTINCT(nombre) FROM oferta_educativa WHERE id_nivel = '5' AND activo = '1'"); 
+													while ($d1 = mysqli_fetch_array($consulta1))
 													{
-														continue;
-													}
-													echo '<optgroup label="'.$d1['nombre'].'">';
-													while ($d2 = mysqli_fetch_array($consulta2))
-													{
-														if ($d['id_oferta']==$d2['id'])
+														if ($d['oferta'] == $d1['nombre'])
 														{
-															echo '<option value="'.$d2['id'].'" selected>'.$d2['nombre'].'</option>';
+															echo '<option value="'.$d1['nombre'].'" selected>'.$d1['nombre'].'</option>';
 														}
-														else 
+														else
 														{
-															echo '<option value="'.$d2['id'].'">'.$d2['nombre'].'</option>';
+															echo '<option value="'.$d1['nombre'].'">'.$d1['nombre'].'</option>';
 														}
 													}
-													echo '</optgroup>';
-												}
 												?>
 											</select>
 										</div>
@@ -123,30 +105,15 @@ else if (isset($_POST['id']))
 								
 							
 								<div class="row">		
-									<div class="form-wrapper col-sm-4">
-										<label>Horario de contacto</label>
-										<div class="form-group">
-											<select name="horario" class="form-control" id="horario">
-												<?php
-												$sel1 = $d['horario']=='Mañana'?'selected':'';
-												$sel2 = $d['horario']=='Tarde'?'selected':'';
-												$sel3 = $d['horario']=='Indistinto'?'selected':'';
-												?>
-												<option value="Mañana" <?php echo $sel1;?> >Mañana</option>
-												<option value="Tarde" <?php echo $sel2;?>>Tarde</option>
-												<option value="Indistinto" <?php echo $sel3;?>>Indistinto</option>
-											</select>
-										</div>
-									</div>
-									
-									<div class="form-wrapper col-sm-4">
+
+									<div class="form-wrapper col-sm-6">
 										<label>Correo</label>
 										<div class="form-group ">
 											<input type="email" class="form-control" name="correo" placeholder="Correo" value="<?php echo $d['correo'];?>" <?php echo $read;?>>
 										</div>
 									</div>
 									
-									<div class="form-wrapper col-sm-4">
+									<div class="form-wrapper col-sm-6">
 										<label>Teléfono</label>
 										<div class="form-group ">
 											<input type="tel" class="form-control" name="telefono" placeholder="Teléfono" value="<?php echo $d['telefono'];?>" <?php echo $read;?>>
@@ -154,67 +121,6 @@ else if (isset($_POST['id']))
 									</div>
 								</div>
 								
-								<div class="row">
-									<div class="form-wrapper col-sm-4">
-										<label>¿Cómo te enteraste de nosotros?</label>
-										<select name="medio" class="form-control" id="medio">
-											<option value="">Seleccionar</option>
-											<?php
-												$consulta_cat = mysqli_query($conexion,"SELECT * FROM medios");
-												while ($cat = mysqli_fetch_array($consulta_cat))
-												{
-													echo $d['medio'] == $cat['id']?'<option value="'.$cat['id'].'" selected>'.$cat['nombre'].'</option>':'<option value="'.$cat['id'].'">'.$cat['nombre'].'</option>';
-												}
-											?>
-										</select>
-									</div>
-									<div class="form-wrapper col-sm-4">
-										<label>Ranking del prospecto</label>
-										<select name="ranking" class="form-control" id="ranking">
-											<option value="" selected>Seleccionar</option>
-											<?php for($e = 1; $e < 4; $e++){ ?>
-											<option value="<?php echo $e; ?>" <?php if($d['ranking'] == $e){ echo "selected"; } ?>><?php echo $e; ?></option>
-											<?php } ?>
-										</select>
-									</div>
-								</div>
-								
-								
-								
-								<div class="row">
-                                    <div class="form-wrapper col-lg-12">
-                                        <label>Comentarios</label>
-                                        <div class="form-group">
-                                            <textarea class="form-control" name="comentarios" rows="5"></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr>
-                                <h3>Historial de comentarios</h3>
-                                <?php
-                                $consulta1 = mysqli_query($conexion,"SELECT * FROM comentarios WHERE id_prospecto = '".$d['id']."' ORDER BY id DESC");
-                                while ($d1 = mysqli_fetch_array($consulta1))
-                                {
-                                    $consulta2 = mysqli_query($conexion,"SELECT * FROM usuarios WHERE id = '".$d1['id_asesor']."'");
-                                    $d2 = mysqli_fetch_array($consulta2);
-                                ?>
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <div class="form-group">
-                                            <div class="well">
-                                                <p><strong>Fecha: <?php echo FechaFormato($d1['fecha']).' '.$d1['hora'];?></strong></p>
-                                                <p><?php echo nl2br($d1['comentarios']);?></p>
-                                                <br>
-                                                <p class="text-info"><?php echo $d2['nombre'];?></p>
-                                                <a href="prospectos?eliminar_comentario=<?php echo md5($d1['id']);?>" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i> Eliminar</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <?php
-                                }
-								?>
-								<br>												
 								<div class="row">
 									<div class="col-sm-8">
 										<?php
@@ -244,7 +150,7 @@ else if (isset($_POST['id']))
 										?>
 									</div>
 									<div class="col-sm-4">
-										<a href="prospectos" class="btn btn-default btn-lg btn-block">Cancelar <i class="fas fa-times"></i></a>
+										<a href="prospectos_eventos" class="btn btn-default btn-lg btn-block">Cancelar <i class="fas fa-times"></i></a>
 									</div>
 								</div>
                             </form>
@@ -305,7 +211,7 @@ else if (isset($_POST['id']))
 						minlength: 3
 					},
 					telefono: {
-						required: false,
+						required: true,
 						minlength:10,
 						maxlength:10,
 					},
@@ -314,10 +220,7 @@ else if (isset($_POST['id']))
 						minlength: 3,
 						email: true
 					},
-					id_campus: {
-						required: true,
-					},
-					id_oferta: {
+					oferta: {
 						required: true,
 					},
 				},
