@@ -596,6 +596,55 @@
                                     ]
                                 }]
                             });
+                            Highcharts.chart('container5', {
+                                chart: {
+                                    plotBackgroundColor: null,
+                                    plotBorderWidth: 0,
+                                    plotShadow: false
+                                },
+                                title: {
+                                    text: 'Ranking<br>de<br>Estrellas',
+                                    align: 'center',
+                                    verticalAlign: 'middle',
+                                    y: 60
+                                },
+                                tooltip: {
+                                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                                },
+                                colors: ['#F95151', '#EC7063', '#3D96AE', '#FFFF00', '#FFFF00', '#A47D7C', '#B5CA92' ],
+                                accessibility: {
+                                    point: {
+                                        valueSuffix: '%'
+                                    }
+                                },
+                                plotOptions: {
+                                    pie: {
+                                        dataLabels: {
+                                            enabled: true,
+                                            distance: -50,
+                                            style: {
+                                                fontWeight: 'bold',
+                                                color: 'white'
+                                            }
+                                        },
+                                        startAngle: -90,
+                                        endAngle: 90,
+                                        center: ['50%', '75%'],
+                                        size: '110%'
+                                    }
+                                },
+                                series: [{
+                                    type: 'pie',
+                                    name: 'Browser share',
+                                    innerSize: '50%',
+                                    data: [
+                                        ['Cero Estrellas', Number(data.graficasranking.ranking.cero)],
+                                        ['Una Estrella', Number(data.graficasranking.ranking.unos)],
+                                        ['Dos Estrellas', Number(data.graficasranking.ranking.dos)],
+                                        ['Tres Estrella', Number(data.graficasranking.ranking.tres)]
+                                    ]
+                                }]
+                            });
                         }
                         if(tipo == 'aspirantes'){
                             var cal = [];

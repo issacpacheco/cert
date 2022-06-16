@@ -213,7 +213,7 @@ $d['pass'] = $d['pass']!=''?$d['pass']:'1234';
 									<div class="form-wrapper col-sm-4">
 										<label>Correo</label>
 										<div class="form-group ">
-											<input type="email" class="form-control" name="correo" placeholder="Correo" value="<?php echo $d['correo'];?>" <?php echo $read;?>>
+											<input type="email" class="form-control" id="correo" name="correo" placeholder="Correo" value="<?php echo $d['correo'];?>" <?php echo $read;?>>
 										</div>
 									</div>
 									
@@ -226,7 +226,7 @@ $d['pass'] = $d['pass']!=''?$d['pass']:'1234';
 									<div class="form-wrapper col-sm-4">
 										<label>Teléfono</label>
 										<div class="form-group ">
-											<input type="tel" class="form-control" name="telefono" placeholder="Teléfono" value="<?php echo $d['telefono'];?>" <?php echo $read;?>>
+											<input type="tel" class="form-control" id="telefono" name="telefono" placeholder="Teléfono" value="<?php echo $d['telefono'];?>" <?php echo $read;?>>
 										</div>
 									</div>
 								</div>
@@ -620,10 +620,13 @@ $d['pass'] = $d['pass']!=''?$d['pass']:'1234';
 										<?php
 										if ($_POST['editar'] == 1)
 										{
-											echo '
-											<input type="hidden" name="editar" value="'.$d['id'].'">
-											<button type="submit" class="btn btn-success btn-lg btn-block">Guardar <i class="fas fa-save"></i></button>
-											';
+											if($_SESSION['campus'] == 1 && $_SESSION['id_admin'] !== 2){ 
+												echo '
+												<input type="hidden" name="editar" value="'.$d['id'].'">
+												<button type="submit" class="btn btn-success btn-lg btn-block">Guardar <i class="fas fa-save"></i></button>
+												';
+											}
+											
 										}
 										else if ($_POST['eliminar'] == 1)
 										{
@@ -634,10 +637,13 @@ $d['pass'] = $d['pass']!=''?$d['pass']:'1234';
 										}
 										else
 										{
-											echo '
-											<input type="hidden" name="alta" value="1">
-											<button type="submit" class="btn btn-success btn-lg btn-block">Guardar <i class="fas fa-save"></i></button>
-											';
+											if($_SESSION['campus'] == 1 && $_SESSION['id_admin'] !== 2){ 
+												echo '
+													<input type="hidden" name="alta" value="1">
+													<button type="submit" class="btn btn-success btn-lg btn-block">Guardar <i class="fas fa-save"></i></button>
+													';
+											}
+											
 										}
 										?>
 									</div>
@@ -724,6 +730,18 @@ $d['pass'] = $d['pass']!=''?$d['pass']:'1234';
 						required: true,
 						minlength:10,
 						maxlength:10,
+						<?php if(!isset($_POST['id'])){ ?>
+						remote: {
+							url: "ajax/telefono_validate",
+							type: "post",
+							data: {
+								telefono_val: function() 
+								{
+									return $( "#telefono" ).val();
+								}
+							}
+						}
+						<?php } ?>
 					},
 					edo_civil: {
 						required: true,
@@ -731,7 +749,19 @@ $d['pass'] = $d['pass']!=''?$d['pass']:'1234';
 					correo: {
 						required: true,
 						minlength: 3,
-						email: true
+						email: true,
+						<?php if(!isset($_POST['id'])){ ?>
+						remote: {
+							url: "ajax/correo_validate",
+							type: "post",
+							data: {
+								correo_val: function() 
+								{
+									return $( "#correo" ).val();
+								}
+							}
+						}
+						<?php } ?>
 					},
 					pass: {
 						required: true,
@@ -766,7 +796,12 @@ $d['pass'] = $d['pass']!=''?$d['pass']:'1234';
 				},
 
 				messages: { // custom messages for radio buttons and checkboxes
-
+					correo:{
+						remote:"Ya esta registrado el correo."
+					},
+					telefono:{
+						remote: "Ya esta registrado este telefono."
+					},
 				},
 
 				invalidHandler: function ( event, validator ) { //display error alert on form submit   

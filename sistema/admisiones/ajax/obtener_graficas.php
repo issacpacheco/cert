@@ -105,6 +105,12 @@ switch ($tipo){
                                                     "medico_cirujano"                                    => $h['medico_cirujano'][0],
                                                     "turismo"                                            => $h['turismo'][0]));
 
+        $r = $get->obtener_ranking_prospectos($campus,$fecha_ini,$fecha_fin);
+        $arregloranking = array("ranking" => array("cero"   => $r['cero'][0],
+                                                    "uno"   => $r['uno'][0],
+                                                    "dos"   => $r['dos'][0],
+                                                    "tres"  => $r['tres'][0]));
+
         $o = $get->obtener_horario_preferencia_prospectos($campus,$fecha_ini,$fecha_fin);
         $arreglohorario = array("horario" => array("matutino"           => $o['Matutino'][0],
                                                     "vespertino"        => $o['Vespertino'][0],
@@ -118,6 +124,7 @@ switch ($tipo){
         $json['graficashorario']        = $arreglohorario;
         $json['graficascarreras']       = $arreglocarreras;
         $json['graficasmedios']         = $arreglomedios;
+        $json['graficasranking']        = $arregloranking;
 
         $json = json_encode($json);
         print_r($json);
