@@ -625,6 +625,11 @@ $d['pass'] = $d['pass']!=''?$d['pass']:'1234';
 												<input type="hidden" name="editar" value="'.$d['id'].'">
 												<button type="submit" class="btn btn-success btn-lg btn-block">Guardar <i class="fas fa-save"></i></button>
 												';
+											}else if($_SESSION['campus'] == 2){
+												echo '
+												<input type="hidden" name="editar" value="'.$d['id'].'">
+												<button type="submit" class="btn btn-success btn-lg btn-block">Guardar <i class="fas fa-save"></i></button>
+												';
 											}
 											
 										}
@@ -647,11 +652,12 @@ $d['pass'] = $d['pass']!=''?$d['pass']:'1234';
 										}
 										?>
 									</div>
-									<?php if($_SESSION['campus'] == 1 && $_SESSION['id_admin'] == 2){ ?>
+									<?php if($_SESSION['campus'] == 1 && $_SESSION['id_admin'] == 2 || $_SESSION['campus'] == 2 && $_SESSION['id_admin'] == 7){ ?>
 									<div class="col-sm-4">
-										<input type="hidden" name="validacion" value="<?php echo $d['id']; ?>">
-										<input type="hidden" name="id" value="<?php echo $d['id']; ?>">
-										<button type="submit" class="btn btn-md btn-info btn-lg btn-block" title="Validar"><i class="fas fa-check"></i> Validar</button>
+										<!-- <input type="hidden" name="validacion" value="<?php echo $d['id']; ?>">
+										<input type="hidden" name="id" value="<?php //echo $d['id']; ?>">
+										<button type="submit" class="btn btn-md btn-info btn-lg btn-block" title="Validar"><i class="fas fa-check"></i> Validar</button> -->
+										<a href="aspirantes?validacion=1&id=<?php echo $d['id'] ?>" class="btn btn-info btn-lg btn-block">Validar <i class="fas fa-check"></i></a>
 									</div>
 									<?php } ?>
 									<div class="col-sm-4">

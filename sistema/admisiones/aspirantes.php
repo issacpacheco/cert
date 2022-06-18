@@ -340,7 +340,7 @@ if (isset($_POST['validacion']))
 		else
 		{
 			mandar_correo_validacion1($correo,$nombre,$asunto,$archivos);
-		}		
+		}
 	}
 }
 if (isset($_POST['matricula']))
@@ -475,6 +475,80 @@ if (isset($_POST['inscrito']))
 		copy('../archivos/aspirantes/'.$d['id'].'/cedula_maestria.pdf','../archivos/alumnos/'.$id.'/cedula_maestria.pdf');
 	}
 	
+}
+if(isset($_GET['validacion'])){
+	$consulta = mysqli_query($conexion,"SELECT * FROM aspirantes_validacion WHERE id_aspirante = '".$_GET['id']."'");
+	if (mysqli_num_rows($consulta) == 0)
+	{
+		$consulta = mysqli_query($conexion,"SELECT * FROM aspirantes WHERE id = '".$_GET['id']."'");
+		$d = mysqli_fetch_array($consulta);
+
+		mysqli_query($conexion,"ALTER TABLE aspirantes_validacion AUTO_INCREMENT = 0");
+		mysqli_query($conexion,"INSERT INTO aspirantes_validacion VALUES (
+		'0',
+		'".$d['id']."',
+		'".$hoy."',
+		'',
+		'',
+		'',
+		'',
+		'0'
+		)");
+
+		$genero = $d['genero']=='Masculino'?'H':'M';
+
+		//Psicometrico
+		mysqli_query($conexion2,"ALTER TABLE aspirantes AUTO_INCREMENT = 0");
+		mysqli_query($conexion2, "INSERT INTO aspirantes VALUES (
+		'".$d['id']."', 
+		'".$d['id_campus']."',
+		'".$d['id_oferta']."',
+		'".$d['nombre']."',
+		'".$d['paterno']."',
+		'".$d['materno']."',
+		'".$genero."',
+		'".$d['correo']."',
+		'".$d['pass']."',
+		'".$d['telefono']."'
+		)" );
+
+		//Diagnóstico
+		mysqli_query($conexion3,"ALTER TABLE aspirantes AUTO_INCREMENT = 0");
+		mysqli_query($conexion3, "INSERT INTO aspirantes VALUES (
+		'".$d['id']."', 
+		'".$d['id_campus']."',
+		'".$d['id_oferta']."',
+		'".$d['nombre']."',
+		'".$d['paterno']."',
+		'".$d['materno']."',
+		'".$genero."',
+		'".$d['correo']."',
+		'".$d['pass']."',
+		'".$d['telefono']."'
+		)" );
+		
+		
+		//Enviar correo
+		$correo=$d['correo'];
+		$nombre=$d['nombre'];
+		$asunto="Confirmación de documentos";
+		if (file_exists('../archivos/docs/GUIA_DE_EXAMEN.pdf'))
+		{
+			$archivos[] = '../archivos/docs/GUIA_DE_EXAMEN.pdf';
+		}
+		if ($d['id_oferta']=='22')
+		{
+			mandar_correo_validacion22($correo,$nombre,$asunto);
+		}
+		else if ($d['id_oferta']=='3' || $d['id_oferta']=='4' || $d['id_oferta']=='19')
+		{
+			mandar_correo_validacion_lic_educacion($correo,$nombre,$asunto);
+		}
+		else
+		{
+			mandar_correo_validacion1($correo,$nombre,$asunto,$archivos);
+		}
+	}
 }
 ?>
 <!DOCTYPE html>
@@ -842,7 +916,7 @@ if (isset($_POST['inscrito']))
 					} );
 				});
 				<?php
-				if (isset($_POST['validacion']))
+				if (isset($_POST['validacion']) || $_GET['validacion'])
 				{
 					?>
 					Swal.fire({
@@ -899,7 +973,14 @@ if (isset($_POST['inscrito']))
 				function ObtenerExcel(){
 					location.href="ajax/obtener_excel.php";
 				}
-			</script>            
+			</script>
+			<?php if($_GET == TRUE){ ?>
+				<script>    
+					if(typeof window.history.pushState == 'function') {
+						window.history.pushState({}, "Hide", "aspirantes");
+					}
+				</script>
+			<?php } ?>
         </div>
 
     </div>
