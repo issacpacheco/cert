@@ -647,6 +647,11 @@ $d['pass'] = $d['pass']!=''?$d['pass']:'1234';
 													<input type="hidden" name="alta" value="1">
 													<button type="submit" class="btn btn-success btn-lg btn-block">Guardar <i class="fas fa-save"></i></button>
 													';
+											}else if($_SESSION['campus'] == 2){
+												echo '
+													<input type="hidden" name="alta" value="1">
+													<button type="submit" class="btn btn-success btn-lg btn-block">Guardar <i class="fas fa-save"></i></button>
+													';
 											}
 											
 										}

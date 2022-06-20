@@ -15,6 +15,69 @@ use nsfunciones\funciones;
 $fn = new funciones();
 $get = new reportes();
 
+
+$conDia = $get->convDia($_SESSION['campus'], 1);
+
+if($conDia['entrada'][0] == 0){
+    $conversiondeldia = array("Total" => 0, "registro" => 0, "alumno" => 0);
+    $json['conversiondeldia'] = $conversiondeldia;
+}else{
+    $entraron = $conDia['entrada'][0];
+    
+    $sonalumnos = $conDia['total'][0];
+    
+    $conversiondia = round($sonalumnos * 100 / $entraron);
+
+    $conversiondeldia = array("Total" => $conversiondia, "registro" => $entraron, "alumno" => $sonalumnos);
+    $json['conversiondeldia'] = $conversiondeldia;
+}
+
+$conSemanal = $get->convDia($_SESSION['campus'], 2);
+if($conSemanal['entrada'][0] == 0){
+    $conversionsemanal = array("Total" => 0, "registro" => 0, "alumno" => 0);
+    $json['conversionsemanal'] = $conversionsemanal;
+}else{
+    $entraron = $conSemanal['entrada'][0];
+    
+    $sonalumnos = $conSemanal['total'][0];
+    
+    $conversionsemana = round($sonalumnos * 100 / $entraron);
+
+    $conversionsemanal = array("Total" => $conversionsemana, "registro" => $entraron, "alumno" => $sonalumnos);
+    $json['conversionsemanal'] = $conversionsemanal;
+}
+
+$convMes = $get->convDia($_SESSION['campus'], 3);
+if($convMes['entrada'][0] == 0){
+    $conversiondelmes = array("Total" => 0, "registro" => 0, "alumno" => 0);
+    $json['conversiondelmes'] = $conversiondelmes;
+}else{
+    $entraron = $convMes['entrada'][0];
+    
+    $sonalumnos = $convMes['total'][0];
+    
+    $conversionmes = round($sonalumnos * 100 / $entraron);
+
+    $conversiondelmes = array("Total" => $conversionmes, "registro" => $entraron, "alumno" => $sonalumnos);
+    $json['conversiondelmes'] = $conversiondelmes;
+}
+
+$convAnio = $get->convDia($_SESSION['campus'], 4);
+if($convAnio['entrada'][0] == 0){
+    $conversiondelanio = array("Total" => 0, "registro" => 0, "alumno" => 0);
+    $json['conversiondelanio'] = $conversiondelanio;
+}else{
+    $entraron = $convAnio['entrada'][0];
+    
+    $sonalumnos = $convAnio['total'][0];
+    
+    $conversionanio = round($sonalumnos * 100 / $entraron);
+
+    $conversiondelanio = array("Total" => $conversionanio, "registro" => $entraron, "alumno" => $sonalumnos);
+    $json['conversiondelanio'] = $conversiondelanio;
+}
+
+
 $totalalumnos = $get->obtener_total_alumnos_inscritos_panel($campus);
 $arreglototalinscritos = array("Total" => $totalalumnos['total'][0]);
 $json['totalinscritos'] = $arreglototalinscritos;

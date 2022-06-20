@@ -59,6 +59,47 @@ include( "includes/config.php" );
 							</div>
 						</div>
 						<div class="panel-body">
+							<div class="row">
+								<h1>Conversiones de prospectos a alumnos</h1>
+								<div class="col-sm-12">
+									<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+										<a href="#" class="thumbnail" style="text-decoration: none;background-color: #428bca;color:white;">
+											<h2 class="text-center"><i class="fas fa-percentage" ></i> Tasa de conversión del día</h2>
+											<h1 class="text-center" id="convdia">0%</h1>
+											<p>Prospectos registrados: <label for="" id="regdia"></label></p>
+											<p>Conversión a alumno: <label for="" id="alumdia"></label></p>
+										</a>
+										
+									</div>
+									<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+										<a href="#" class="thumbnail" style="text-decoration: none;background-color: #5bc0de;color:white;">
+											<h2 class="text-center"><i class="fas fa-percentage" ></i> Tasa de conversión semanal</h2>
+											<h1 class="text-center" id="convsemanal">0%</h1>
+											<p>Prospectos registrados: <label for="" id="regsemana"></label></p>
+											<p>Conversión a alumno: <label for="" id="alumsemana"></label></p>
+										</a>
+									</div>
+									<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+										<a href="#" class="thumbnail" style="text-decoration: none;background-color: #f0ad4e;color:white;">
+											<h2 class="text-center"><i class="fas fa-percentage" ></i> Tasa de conversión mensual</h2>
+											<h1 class="text-center" id="convmensual">0%</h1>
+											<p>Prospectos registrados: <label for="" id="regmes"></label></p>
+											<p>Conversión a alumno: <label for="" id="alummes"></label></p>
+										</a>
+									</div>
+									<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+										<a href="#" class="thumbnail" style="text-decoration: none;background-color: #5cb85c;color:white;">
+											<h2 class="text-center"><i class="fas fa-percentage" ></i> Tasa de conversión del año presente</h2>
+											<h1 class="text-center" id="convanio">0%</h1>
+											<p>Prospectos registrados: <label for="" id="reganio"></label></p>
+											<p>Conversión a alumno: <label for="" id="alumanio"></label></p>
+										</a>
+									</div>
+								</div>
+							</div>
+
+						</div>
+						<div class="panel-body">
 							<h2>Graficas Alumnos <span id="totalesinscritos"></span></h2>
 							<div class="row">
 								<div class="col-sm-6">
@@ -136,6 +177,23 @@ include( "includes/config.php" );
 			success: function(data){
 				$('#totalesinscritos').html("con un total de "+data.totalinscritos.Total+" inscritos en este campus");
 				$('#totalesprospectos').html("con un total de "+data.totalprospectos.Total+" registrados en este campus");
+				$('#convdia').html(data.conversiondeldia.Total+"%");
+				$('#convsemanal').html(data.conversionsemanal.Total+"%");
+				$('#convmensual').html(data.conversiondelmes.Total+"%");
+				$('#convanio').html(data.conversiondelanio.Total+"%");
+
+				$('#regdia').html(data.conversiondeldia.registro);
+				$('#alumdia').html(data.conversiondeldia.alumno);
+
+				$('#regsemana').html(data.conversionsemanal.registro);
+				$('#alumsemana').html(data.conversionsemanal.alumno);
+
+				$('#regmes').html(data.conversiondelmes.registro);
+				$('#alummes').html(data.conversiondelmes.alumno);
+
+				$('#reganio').html(data.conversiondelanio.registro);
+				$('#alumanio').html(data.conversiondelanio.alumno);
+
 				Highcharts.chart('container', {
 					chart: {
 						plotBackgroundColor: null,
