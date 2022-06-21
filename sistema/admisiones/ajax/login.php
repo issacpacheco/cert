@@ -19,6 +19,7 @@ if (isset($_POST['correo']) && isset($_POST['pass']))
 		$_SESSION['area'] = $d['id_area'];
 		$_SESSION['nombre'] = $d1['nombre'];
 		$_SESSION['nivel'] = $d['nivel'];
+		$_SESSION['calendario'] = $d['iframe_google'];
 		echo "1";//OK
 		exit();
 	}

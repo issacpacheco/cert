@@ -61,8 +61,8 @@ include( "includes/config.php" );
 						<div class="panel-body">
 							<div class="row">
 								<h1>Conversiones de prospectos a alumnos</h1>
-								<div class="col-sm-12">
-									<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+								<div class="col-sm-8">
+									<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
 										<a href="#" class="thumbnail" style="text-decoration: none;background-color: #428bca;color:white;">
 											<h2 class="text-center"><i class="fas fa-percentage" ></i> Tasa de conversión del día</h2>
 											<h1 class="text-center" id="convdia">0%</h1>
@@ -71,7 +71,7 @@ include( "includes/config.php" );
 										</a>
 										
 									</div>
-									<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+									<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
 										<a href="#" class="thumbnail" style="text-decoration: none;background-color: #5bc0de;color:white;">
 											<h2 class="text-center"><i class="fas fa-percentage" ></i> Tasa de conversión semanal</h2>
 											<h1 class="text-center" id="convsemanal">0%</h1>
@@ -79,7 +79,7 @@ include( "includes/config.php" );
 											<p>Conversión a alumno: <label for="" id="alumsemana"></label></p>
 										</a>
 									</div>
-									<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+									<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 										<a href="#" class="thumbnail" style="text-decoration: none;background-color: #f0ad4e;color:white;">
 											<h2 class="text-center"><i class="fas fa-percentage" ></i> Tasa de conversión mensual</h2>
 											<h1 class="text-center" id="convmensual">0%</h1>
@@ -95,6 +95,12 @@ include( "includes/config.php" );
 											<p>Conversión a alumno: <label for="" id="alumanio"></label></p>
 										</a>
 									</div>
+								</div>
+								<div class="col-sm-4">
+									<div class="calendariogoogle">
+                                        <?php 
+                                        echo html_entity_decode(str_replace("'", '"',$_SESSION['calendario'])); ?>
+                                    </div>
 								</div>
 							</div>
 
