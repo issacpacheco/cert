@@ -60,7 +60,7 @@ for($i = 0;$i < count($gatosdelmes); $i++){
                     <div class="col-lg-8 p-r-0 title-margin-right">
                         <div class="page-header">
                             <div class="page-title">
-                                <h1>Hola <?php echo $_SESSION['nombre']; ?>, <span>Bienvenid@ de nuevo al sistema de inventario</span></h1>
+                                <h1>Hola <?php echo utf8_encode(html_entity_decode($_SESSION['nombre'])); ?>, <span>Bienvenid@ de nuevo al sistema de inventario</span></h1>
                             </div>
                         </div>
                     </div>
@@ -82,15 +82,15 @@ for($i = 0;$i < count($gatosdelmes); $i++){
                                     <?php } ?>
                                 </select>
                             </div>
-                            <div class="col-sm-6">
+                            <!-- <div class="col-sm-6">
                                 <label> Selecciona un campus </label>
                                 <select name="id_campus" class="form-control" id="id_campus" onchange="obtener_info_area(this.value);">
                                     <option value="0" selected>Seleccione un area</option>
-                                    <?php for($i = 0; $i < $ccampus; $i++){ ?>
-                                    <option value="<?php echo $campus['id'][$i] ?>"><?php echo utf8_decode($campus['nombre'][$i]); ?></option>
-                                    <?php } ?>
+                                    <?php //for($i = 0; $i < $ccampus; $i++){ ?>
+                                    <option value="<?php //echo $campus['id'][$i] ?>"><?php //echo utf8_decode($campus['nombre'][$i]); ?></option>
+                                    <?php //} ?>
                                 </select>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                     <?php } ?>
@@ -184,7 +184,8 @@ for($i = 0;$i < count($gatosdelmes); $i++){
                             <div class="col-lg-12">
                                 <div class="card" style="height: 68.5rem;">
                                     <div class="calendariogoogle">
-                                        <?php echo $_SESSION['calendario'] ?>
+                                        <?php 
+                                        echo html_entity_decode(str_replace("'", '"',$_SESSION['calendario'])); ?>
                                     </div>
                                 </div>
                                 <!-- /# card -->
@@ -297,7 +298,7 @@ for($i = 0;$i < count($gatosdelmes); $i++){
                                             <?php for($i = 0,$a=0; $i < $ctransfers; $i++){ $a = $a+1;  ?>
                                                 <tr>
                                                     <td class="btn-success"><?php echo $a; ?></td>
-                                                    <td class="btn-success"><?php echo $transfers['campus_origen'][$i]; ?></td>
+                                                    <td class="btn-success"><?php echo utf8_encode(html_entity_decode($transfers['campus_origen'][$i])); ?></td>
                                                     <td class="btn-success"><?php echo $transfers['campus_destino'][$i]; ?></td>
                                                     <td class="btn-success"><?php echo $transfers['codigo_transfer'][$i]; ?></td>
                                                     <td class="text-center btn-success"><i class="btn btn-danger fas fa-file-pdf" onclick="generarreporte('<?php echo $transfers['codigo_transfer'][$i]; ?>');"></i></td>

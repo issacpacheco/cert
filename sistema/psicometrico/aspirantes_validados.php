@@ -232,7 +232,7 @@ if (isset($_POST['eliminar_examen']))
 						"responsive": true,
 						"dom": 'Bfrtip',
 						"pageLength": 50,
-						"order": [[ 0, "asc" ]],
+						"order": [[ 2, "desc" ]],
 						//"order": [ [ $('th.defaultSort').index(),  'asc' ] ],
 						"buttons": [
 							{

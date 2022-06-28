@@ -36,7 +36,8 @@ if (isset($_POST['correo']) && isset($_POST['nombre']))
 		'".mb_strtoupper(mysqli_real_escape_string($conexion,$_POST['institucion']),'UTF-8')."',
 		'".mysqli_real_escape_string($conexion,$_POST['medio'])."',
 		'',
-		'".$hoy."'
+		'".$hoy."',
+		'3'
 		)"))
 		{
 			

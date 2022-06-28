@@ -767,7 +767,7 @@ if(isset($_GET['validacion'])){
 									}
 									
 									
-									if ($d1['id_nivel'] > 5)
+									if ($d1['id_nivel'] > 5 || $d1['id'] == 3 || $d1['id'] == 4)
 									{
 										$opc = '
 											<form action="ficha_pago" method="post">

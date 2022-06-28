@@ -32,12 +32,12 @@ include('includes/config.php');
 			background: none;		
 		}
 		.merida{
-			background: url("assets/images/campus/merida.png") no-repeat top right;
+			background: url("assets/images/campus/merida.png?v=3.1") no-repeat top right;
 			background-size: cover;
 			position: relative;
 		}
 		.ticul{
-			background: url("assets/images/campus/ticul.png") no-repeat top left;
+			background: url("assets/images/campus/ticul.png?v=3.1") no-repeat top left;
 			background-size: cover;
 			position: relative;
 			
@@ -83,7 +83,7 @@ include('includes/config.php');
 		}
 		a.title:hover{
 			color: #fff;
-    		animation: heartBeat; /* referring directly to the animation's @keyframe declaration */
+    		animation: pulse; /* referring directly to the animation's @keyframe declaration */
   			animation-duration: 2s; /* don't forget to set a duration! */
 		}
 		
@@ -187,7 +187,7 @@ include('includes/config.php');
 				background: none;
 			}
 			.bg_v{
-				background: url("assets/images/campus/bg_v.png") no-repeat center center;
+				background: url("assets/images/campus/bg_v.png?v=3.1") no-repeat center center;
 				background-size: cover;
 				position: relative;
 			}
@@ -223,18 +223,18 @@ include('includes/config.php');
 	?>
 	<section class="container-fluid h-100 bg_v">
 		<div class="logo">
-			<img src="assets/images/logo_blanco.png" class="animate__animated animate__fadeInDown">
+			<img src="assets/images/logo_blanco.png" class="animate__animated animate__zoomIn">
 		</div>
 				
 		<div class="row h-100">
             <div class="col-12 merida">
 				<div class="contenedor_merida">
-					<a href="https://merida.cert.edu.mx" class="title animate__animated animate__backInLeft">Mérida <br>Caucel</a> 
+					<a href="https://merida.cert.edu.mx" class="title animate__animated animate__slideInDown">Mérida <br>Caucel</a> 
 				</div>            	 
             </div>
 			<div class="col-12 ticul">
 				<div class="contenedor_ticul">
-					<a href="https://ticul.cert.edu.mx" class="title animate__animated animate__backInRight">Ticul</a> 
+					<a href="https://ticul.cert.edu.mx" class="title animate__animated animate__slideInUp">Ticul</a> 
 				</div>
             </div>
 		</div>
@@ -247,17 +247,17 @@ include('includes/config.php');
 	
 	<section class="container-fluid h-100">
 		<div class="logo">
-			<img src="assets/images/logo_blanco.png" class="animate__animated animate__fadeInDown">
+			<img src="assets/images/logo_v_full_white.png" class="animate__animated animate__zoomIn" width="200">
 		</div>
 		
         <div class="row h-100">
-            <div class="col merida">
+            <div class="col merida animate__animated animate__slideInLeft">
 				<div class="contenedor_merida">
 					<a href="https://merida.cert.edu.mx" class="title animate__animated animate__backInLeft">Mérida <br>Caucel</a> 
 				</div>            	 
             </div>
 			
-			<div class="col ticul">
+			<div class="col ticul animate__animated animate__slideInRight">
 				<div class="contenedor_ticul">
 					<a href="https://ticul.cert.edu.mx" class="title animate__animated animate__backInRight">Ticul</a> 
 				</div>
@@ -282,6 +282,7 @@ include('includes/config.php');
   			$('.title').removeClass('animate__backInLeft');
 			$('.title').removeClass('animate__backInRight');
 		});
+		
 				
 	</script>
 	

@@ -19,12 +19,12 @@
 			if ($_SESSION['campus']==1)
 			{
 			?>
-				<li>
+			<!-- <li>
                 <a href="prospectos_eventos">
                     <i class="fas fa-door-open"></i>
                     <span>Open House</span>
                 </a>
-            </li>
+            </li> -->
 			<?php
 			}
 			?>

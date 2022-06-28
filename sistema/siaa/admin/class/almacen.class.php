@@ -103,7 +103,7 @@ class almacen extends mysqlconsultas{
             $qry = "SELECT e.*, p.nombre AS producto, u.nombre AS nombre
                     FROM inv_entrada_producto e
                     LEFT JOIN inv_productos p ON p.id = e.id_producto
-                    LEFT JOIN inv_usuario u ON u.id = e.id_usuario
+                    LEFT JOIN usuarios u ON u.id = e.id_usuario
                     WHERE e.id_campus = {$_SESSION['campus']} 
                     ORDER BY e.fecha DESC, e.hora DESC";
             $res = $this->consulta($qry);
@@ -112,7 +112,7 @@ class almacen extends mysqlconsultas{
             $qry = "SELECT e.*, p.nombre AS producto, u.nombre AS nombre
                     FROM inv_entrada_producto e
                     LEFT JOIN inv_productos p ON p.id = e.id_producto
-                    LEFT JOIN inv_usuario u ON u.id = e.id_usuario
+                    LEFT JOIN usuarios u ON u.id = e.id_usuario
                     WHERE e.id_campus = {$_SESSION['campus']} AND p.id_area = {$_SESSION['area']}
                     ORDER BY e.fecha DESC, e.hora DESC";
             $res = $this->consulta($qry);
@@ -126,7 +126,7 @@ class almacen extends mysqlconsultas{
             $qry = "SELECT e.*, p.nombre AS producto, u.nombre AS nombre, s.nombre AS solicitante
                     FROM inv_salida_producto e
                     LEFT JOIN inv_productos p ON p.id = e.id_producto
-                    LEFT JOIN inv_usuario u ON u.id = e.id_usuario
+                    LEFT JOIN usuarios u ON u.id = e.id_usuario
                     LEFT JOIN inv_usuario s ON s.id = e.id_solicitante
                     WHERE e.id_campus = {$_SESSION['campus']}
                     AND (e.estatus = 0 OR e.estatus >= 3)
@@ -137,7 +137,7 @@ class almacen extends mysqlconsultas{
             $qry = "SELECT e.*, p.nombre AS producto, u.nombre AS nombre, s.nombre AS solicitante
                 FROM inv_salida_producto e
                 LEFT JOIN inv_productos p ON p.id = e.id_producto
-                LEFT JOIN inv_usuario u ON u.id = e.id_usuario
+                LEFT JOIN usuarios u ON u.id = e.id_usuario
                 LEFT JOIN inv_usuario s ON s.id = e.id_solicitante
                 WHERE e.id_campus = {$_SESSION['campus']} AND p.id_area = {$_SESSION['area']}
                 AND (e.estatus = 0 OR e.estatus >= 3)
@@ -373,7 +373,7 @@ class almacen extends mysqlconsultas{
                 LEFT JOIN campus c ON c.id = s.id_campus
                 LEFT JOIN campus a ON a.id = s.id_campus_destino
                 LEFT JOIN inv_productos p ON p.id = s.id_producto
-                WHERE s.estatus < 3 AND p.id_area = {$_SESSION['area']} GROUP BY s.codigo_transfer";
+                WHERE s.estatus < 3 AND p.id_area = {$_SESSION['area']} AND s.id_campus = {$_SESSION['campus']} GROUP BY s.codigo_transfer";
             $res = $this->consulta($qry);
             return $res;
         }
@@ -619,7 +619,7 @@ class almacen extends mysqlconsultas{
     }
 
     public function obtener_proyectos(){
-        $qry = "SELECT * FROM inv_proyectos";
+        $qry = "SELECT * FROM inv_proyectos WHERE id_campus = {$_SESSION['campus']}";
         $res = $this->consulta($qry);
         return $res;
     }
