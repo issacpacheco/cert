@@ -7,10 +7,14 @@ if (isset($_POST['alta']))
 	'0', 
 	'" . $_SESSION[ 'campus' ] . "',
 	'1',
+	'0',
+	'0',
 	'" . $_POST[ 'correo' ]  . "',
 	'" . $_POST[ 'pass' ]  . "',
 	'" . $_POST[ 'nombre' ]  . "',
-	'" . $_POST[ 'nivel' ] . "'
+	'" . $_POST[ 'nivel' ] . "',
+	'0',
+	'0'
 	)" );
 }
 if (isset($_POST['editar']))
