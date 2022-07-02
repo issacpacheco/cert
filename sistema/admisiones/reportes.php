@@ -241,11 +241,11 @@
         var fechas          = document.getElementById("fechas").value;
         var campus          = document.getElementById("campus").value;
         if(tipo == 'alumno'){
-            var list = "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15";
+            var list = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
         }else if(tipo == 'prospectos'){
-            var list = "0,1,2,3,4,5,6,7,8,9";
+            var list = [0,1,2,3,4,5,6,7,8,9];
         }else if(tipo == 'aspirantes' || tipo == 'completos' || tipo == 'psicometrico' || tipo == 'diagnostico'){
-            var list = "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17";
+            var list = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17];
         }
         
         $.ajax({
@@ -273,7 +273,7 @@
                             {
 								extend: 'excel',
 								exportOptions: {
-									columns: [list]
+									columns: list
 								},
 								text: 'Excel <i class="fal fa-file-excel"></i>',
 								messageTop: '',
@@ -282,8 +282,9 @@
 							{
 								extend: 'pdfHtml5',
                 				orientation: 'landscape',
+                                pageSize: 'LEGAL',
 								exportOptions: {
-									columns: [list]
+									columns: list
 								},
 								text: 'PDF <i class="fal fa-file-pdf"></i>',
 								messageTop: 'LISTA DE ASPIRANTES REGISTRADOS',
@@ -292,7 +293,7 @@
 							{
 								extend: 'print',
 								exportOptions: {
-									columns: [list]
+									columns: list
 								},
 								text: 'Imprimir <i class="fal fa-print"></i>',
 								messageTop: '',

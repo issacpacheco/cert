@@ -7,7 +7,7 @@ require_once('../../includes/globals.php');
 require_once('../../includes/funciones.php');
 require_once('../../includes/PHPExcel.php');
 
-$title = 'CENTRO DE ESTUDIOS RODRÍGUEZ TAMAYO';
+$title = 'CENTRO EDUCATIVO RODRÍGUEZ TAMAYO';
 $theme = 'theme-dark.css';
 
 session_start();
