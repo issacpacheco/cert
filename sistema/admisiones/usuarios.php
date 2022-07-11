@@ -8,13 +8,12 @@ if (isset($_POST['alta']))
 	'" . $_SESSION[ 'campus' ] . "',
 	'1',
 	'0',
-	'0',
 	'" . $_POST[ 'correo' ]  . "',
 	'" . $_POST[ 'pass' ]  . "',
 	'" . $_POST[ 'nombre' ]  . "',
 	'" . $_POST[ 'nivel' ] . "',
-	'0',
-	'0'
+	'',
+	''
 	)" );
 }
 if (isset($_POST['editar']))
@@ -122,7 +121,7 @@ if (isset($_POST['eliminar']))
 												<td>'.$campus['nombre'].'</td>
 												<td>'.$d['nombre'].'</td>
 												<td>'.$d['correo'].'</td>
-												<td>'.$d['pass'].'</td>
+												<td>'.md5($d['pass']).'</td>
 												<td>'.$nivel.'</td>
 												<td>
 													<form action="usuarios_abc" method="post">

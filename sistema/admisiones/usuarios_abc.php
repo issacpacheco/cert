@@ -86,7 +86,7 @@ else if (isset($_POST['id']))
 									<div class="form-wrapper col-sm-4">
 										<label>Contraseña</label>
 										<div class="form-group ">
-											<input type="text" class="form-control" name="pass" id="pass" placeholder="Contraseña" value="<?php echo $d['pass'];?>" <?php echo $read;?>>
+											<input type="password" class="form-control" name="pass" id="pass" placeholder="Contraseña" value="<?php echo $d['pass'];?>" <?php echo $read;?>>
 										</div>
 									</div>
 									
